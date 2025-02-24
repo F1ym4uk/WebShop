@@ -1,0 +1,88 @@
+﻿@model webshop.Models.User
+
+@{
+    ViewData["Title"] = "Изменить пользователя";
+}
+
+<h2>Изменить пользователя</h2>
+
+<form asp-action="EditUser" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" readonly />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PasswordResetToken" class="control-label"></label>
+        <input asp-for="PasswordResetToken" class="form-control" readonly />
+        <span asp-validation-for="PasswordResetToken" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PasswordResetTokenExpires" class="control-label"></label>
+        <input asp-for="PasswordResetTokenExpires" class="form-control" readonly />
+        <span asp-validation-for="PasswordResetTokenExpires" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmailConfirmationToken" class="control-label"></label>
+        <input asp-for="EmailConfirmationToken" class="form-control" readonly />
+        <span asp-validation-for="EmailConfirmationToken" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmailConfirmationTokenExpires" class="control-label"></label>
+        <input asp-for="EmailConfirmationTokenExpires" class="form-control" readonly />
+        <span asp-validation-for="EmailConfirmationTokenExpires" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsEmailConfirmed" class="control-label"></label>
+        <input asp-for="IsEmailConfirmed" class="form-control" value="@(Model.IsEmailConfirmed ?? false ? "Да" : "Нет")" readonly />
+        <span asp-validation-for="IsEmailConfirmed" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Isadmin" class="control-label"></label>
+        <input asp-for="Isadmin" type="text" class="form-control" value="@(Model.Isadmin ? "Да" : "Нет")" />
+        <span asp-validation-for="Isadmin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label">Current Image</label>
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div class="mb-2">
+                <img src="~/images/Users/@Model.Image" alt="Current Image" style="max-width: 200px; max-height: 200px;" />
+            </div>
+        }
+        <input type="file" name="imageFile" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

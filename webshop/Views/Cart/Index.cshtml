@@ -1,0 +1,70 @@
+﻿@model List<webshop.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<h2>Ваша корзина</h2>
+
+@if (!Model.Any())
+{
+    <p>Корзина пуста.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена за единицу</th>
+                <th>Итого</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/images/Products/@item.Product.Image" alt="@item.Product.Name" width="50" />
+                        @item.Product.Name
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price р.</td>
+                    <td>@(item.Product.Price * item.Quantity) р.</td>
+                    <td>
+                        <form asp-action="IncreasingQuantity" asp-route-id="@item.Product.Id" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-warning btn-sm">+</button>
+                        </form>
+
+                        <form asp-action="DecreaseQuantity" asp-route-id="@item.Product.Id" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-warning btn-sm">-</button>
+                        </form>
+
+                        <form asp-action="RemoveFromCart" asp-route-id="@item.Product.Id" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        </form>
+                    <td>
+                        <form asp-controller="Home" asp-action="Details" method="get">
+                            <input type="hidden" name="id" value="@item.Product.Id" />
+                            <button type="submit" class="btn btn-link btn-sm">Перейти к товару</button>
+                        </form>
+                    </td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p><strong>Общая сумма: @Model.Sum(item => item.Product.Price * item.Quantity) р.</strong></p>
+
+    <form asp-action="Clear" method="post">
+        <button type="submit" class="btn btn-warning">Очистить корзину</button>
+    </form>
+
+    <form asp-action="" method="post">
+        <button type="submit" class="btn btn-warning">Заказать</button>
+    </form>
+}

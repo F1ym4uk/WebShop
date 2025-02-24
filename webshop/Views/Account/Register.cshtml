@@ -1,0 +1,49 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<h2>Регистрация</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+    <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Login">Войти</a>
+}
+
+<form asp-action="Register" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" type="file" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Зарегистрироваться" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Login">Уже есть аккаунт? Войдите</a>
+</div>

@@ -1,0 +1,64 @@
+﻿@model webshop.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Tags" class="control-label"></label>
+        <input asp-for="Tags" class="form-control" />
+        <span asp-validation-for="Tags" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label">Current Image</label>
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div class="mb-2">
+                <img src="~/images/@Model.Image" alt="Current Image" style="max-width: 200px; max-height: 200px;" />
+            </div>
+        }
+        <input type="file" name="imageFile" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

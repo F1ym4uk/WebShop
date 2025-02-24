@@ -1,0 +1,58 @@
+﻿@model webshop.Models.Product
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h2>Add Product</h2>
+
+<form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category" class="control-label"></label>
+        <input asp-for="Category" class="form-control">
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" type="number" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Tags" class="control-label"></label>
+        <input asp-for="Tags" class="form-control" />
+        <span asp-validation-for="Tags" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" for="imageFile" class="control-label">Image</label>
+        <input asp-for="Image" type="file" name="imageFile" id="imageFile" class="form-control" />
+    </div>
+
+
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,83 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.logo__span {
+    margin-left: 10px;
+}
+
+/*  Стилизация строки поиска в шапке  */
+
+.name__search__form {
+    width: 30%;
+}
+
+.name__search__container {
+    position: relative;
+    width: 100%;
+}
+
+.name__search__input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #bdbdbd;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+    .name__search__input:focus {
+        border-color: #ff00ff;
+    }
+
+.name__search__button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #f0e6ff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .name__search__button:hover {
+        background: #e0caff;
+    }
+
+
+/*  Стилизация строки поиска в шапке  */
+
+
+.product-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+    .product-card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+
+

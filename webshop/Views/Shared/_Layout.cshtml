@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <link rel="icon" type="image/x-icon" href="~/logo.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/webshop.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center mb-3 mb-md-0  link-body-emphasis text-decoration-none">
+                    <svg x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" class="logo__svg">
+                        <path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 12.380859 C 43.266738 11.541629 42.201883 11 41 11 L 9 11 C 7.7981175 11 6.7332621 11.541629 6 12.380859 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 15 17 C 15.553 17 16 17.448 16 18 C 16 22.962 20.037 27 25 27 C 29.963 27 34 22.962 34 18 C 34 17.448 34.447 17 35 17 C 35.553 17 36 17.448 36 18 C 36 24.065 31.065 29 25 29 C 18.935 29 14 24.065 14 18 C 14 17.448 14.447 17 15 17 z"></path>
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: auto;">
+                    <li class="nav-item"><a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="" asp-action="">О нас</a></li>
+                </ul>
+
+
+
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
+                            <li><a class="dropdown-item" asp-controller="Cart" asp-action="Index">Корзина</a></li>
+                            @if (User.HasClaim("IsAdmin", "True"))
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Admin">Панель Администратора</a></li>
+                            }
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item m-0 p-0" onsubmit="return logoutAndReload()">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="dropdown-item">Выйти</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-end">
+                        <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Login">Войти</a>
+                        <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Регистрация</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    
+
+    <div class="container">
+
+        <div>
+            <main role="main" class="pb-5">
+                @RenderBody()
+            </main>
+        </div>
+
+    </div>
+
+    <div class="container">
+
+
+        <footer class="py-5">
+            <div class="row">
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Section</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link p-0 text-body-secondary">Главная</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Section</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Section</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-5 offset-md-1 mb-3">
+                    <form>
+                        <h5>Subscribe to our newsletter</h5>
+                        <p>Monthly digest of what's new and exciting from us.</p>
+                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                            <label for="newsletter1" class="visually-hidden">Email address</label>
+                            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <p>© 2025 WebShop. Все права защищены</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

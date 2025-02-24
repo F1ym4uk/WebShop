@@ -1,0 +1,96 @@
+﻿@model IEnumerable<webshop.Models.User>
+
+@{
+    ViewData["Title"] = "Админ";
+}
+
+<h2>Admin Panel</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}
+
+<form method="get">
+    <input type="text" id="email" name="email" autocomplete="off" list="categoryList" placeholder="Почта" value="@ViewBag.SelectedEmail" />
+    <datalist id="emailList">
+        @foreach (var cat in ViewBag.Emails)
+        {
+            <option value="@cat"></option>
+        }
+    </datalist>
+    <button type="submit">Filter</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Имя</th>
+            <th>Почта</th>
+            <th>Картинка</th>
+            <th>Админ</th>
+            <th>Активирован</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(user.Image))
+                    {
+                        <img src="~/images/Users/@user.Image" alt="@user.Name" style="max-width: 50px; max-height: 50px;" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td>
+                    @if (user.Isadmin == false)
+                    {
+                        <span>Нет</span>
+                    }
+                    else
+                    {
+                        <span>Да</span>
+                    }
+                </td>
+                <td>
+                    @if (user.IsEmailConfirmed == false)
+                    {
+                        <span>Нет</span>
+                    }
+                    else
+                    {
+                        <span>Да</span>
+                    }
+                <td>
+                    <form asp-action="DeleteUser" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этого пользователя?');">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                    <form asp-action="EditUser" method="get">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Изменить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    function copyLink(element) {
+        const link = element.href;
+        navigator.clipboard.writeText(link)
+            .then(() => alert('Ссылка скопирована!'))
+            .catch(err => console.error('Ошибка:', err));
+    }
+</script>
