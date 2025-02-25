@@ -1,39 +1,45 @@
 ﻿@model IEnumerable<webshop.Models.Product>
 
-<h1>Catalog</h1>
+<h1>Каталог</h1>
 
-<div>
-    <form method="get" asp-comtroller="Home" asp-action="Index">
-        <div class="name__search__container">
-            <input type="text" name="name" placeholder="Найти товар" value="@ViewBag.SelectedName" list="nameList" onchange="this.form.submit()" autocomplete="off" />
-            <datalist id="nameList">
-                @foreach (var name in ViewBag.Names)
+<div class="row">
+    <div class="col-md-3">
+        <form method="get" asp-controller="Home" asp-action="Index" class="sticky-top bg-light p-3">
+            <h5>Фильтры</h5>
+            <div class="name__search__container mb-3">
+                <input type="text" name="name" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" list="nameList" onchange="this.form.submit()" autocomplete="off" />
+                <datalist id="nameList">
+                    @foreach (var name in ViewBag.Names)
+                    {
+                        <option value="@name"></option>
+                    }
+                </datalist>
+            </div>
+
+            <input type="text" name="category" class="form-control mb-3" placeholder="Категория" value="@ViewBag.SelectedCategory" list="categoryList" autocomplete="off" />
+            <datalist id="categoryList">
+                @foreach (var cat in ViewBag.Categories)
                 {
-                    <option value="@name"></option>
+                    <option value="@cat"></option>
                 }
             </datalist>
+
+            <input type="number" name="minPrice" class="form-control mb-3" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+            <input type="number" name="maxPrice" class="form-control mb-3" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+            <button type="submit" class="btn btn-primary">Фильтр</button>
+        </form>
+    </div>
+
+    <div class="col-md-9">
+        <div id="product-list" class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;"></div>
+
+        <div id="loading" style="display: none; text-align: center; margin: 20px;">
+            <p>Загрузка...</p>
         </div>
-
-
-        <input type="text" name="category" placeholder="Категория" value="@ViewBag.SelectedCategory" list="categoryList" autocomplete="off" />
-        <datalist id="categoryList">
-            @foreach (var cat in ViewBag.Categories)
-            {
-                <option value="@cat"></option>
-            }
-        </datalist>
-
-        <input type="number" name="minPrice" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
-        <input type="number" name="maxPrice" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
-        <button type="submit">Фильтр</button>
-    </form>
+    </div>
 </div>
 
-<div id="product-list" class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;"></div>
 
-<div id="loading" style="display: none; text-align: center; margin: 20px;">
-    <p>Загрузка...</p>
-</div>
 
 <script>
     let skip = $('.product-card').length;
@@ -59,33 +65,42 @@
         $.get('/Home/LoadProducts', { ...getFilters(), skip, take }, function (response) {
             if (response.products && response.products.length > 0) {
                 response.products.forEach((product, index) => {
-                    let productCard = $(`
-                    <div class="product-card" style="border: 1px solid #ccc; padding: 15px;">
-                        <img src="/images/Products/${product.image}" alt="${product.name}" style="max-width: 100%;" />
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <p>${product.price} р.</p>
-                    </div>
-                `);
+                    let productCard = $(
+                        `<div class="card" id="card">
+                             <div class="content">
+                                 <img src="/images/Products/${product.image}" alt="${product.name}" style="max-width: 100%;" />
+                                 <h3>${product.name}</h3>
+                                 <p>${product.description}</p>
+                                 <p>${product.price} р.</p>
+                             </div>
+                         </div>`
+                    );
 
                     if (response.isAuthenticated) {
-                        const forms = $(`
-                        <form action="/Home/Details" method="get">
-                            <input type="hidden" name="id" value="${product.id}" />
-                            <button type="submit" class="btn btn-link btn-sm">Просмотреть товар</button>
-                        </form>
-                        <form action="/Cart/AddToCart" method="post">
-                            <input type="hidden" name="productId" value="${product.id}" />
-                            <div class="form-group">
-                                <label>Количество:</label>
-                                <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 100px;" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
-                        </form>
-                    `);
+                        let detailsForm = $(
+                            `<form action="/Home/Details" method="get">
+                                 <input type="hidden" name="id" value="${product.id}" />
+                                 <button type="submit" class="btn btn-link btn-sm">Просмотреть товар</button>
+                             </form>`
+                        );
 
-                        productCard.append(forms);
+                        let addToCartForm = $(
+                            `<form action="/Cart/AddToCart" method="post">
+                                 <input type="hidden" name="productId" value="${product.id}" />
+                                 <div class="form-group">
+                                     <label>Количество:</label>
+                                     <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 100px;" />
+                                 </div>
+                                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                             </form>`
+                        );
+
+                        productCard.find('.content').append(detailsForm); 
+                        productCard.find('.content').append(addToCartForm);
+
                     }
+
+
 
                     $('#product-list').append(productCard);
 
@@ -114,7 +129,7 @@
 
         $('form').on('submit', function (e) {
             e.preventDefault();
-            $('#product-list').empty();  // Очищаем список перед новым поиском
+            $('#product-list').empty();
             skip = 0;
             hasMore = true;
             loadProducts();

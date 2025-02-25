@@ -22,35 +22,62 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: auto;">
-                    <li class="nav-item"><a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="" asp-action="">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="AboutAs">О нас</a></li>
                 </ul>
-
 
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="32" height="32" class="rounded-circle">
+                            <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="40" height="40" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
-                            <li><a class="dropdown-item" asp-controller="Cart" asp-action="Index">Корзина</a></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Profile">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-2" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        <path d="M14 14s-1-4-6-4-6 4-6 4 1 1 6 1 6-1 6-1z" />
+                                    </svg>
+                                    Личный кабинет
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" asp-controller="Cart" asp-action="Index">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart me-2" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 6A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.49-.402L1.61 2H.5a.5.5 0 0 1-.5-.5zm4 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                    </svg>
+                                    Корзина
+                                </a>
+                            </li>
                             @if (User.HasClaim("IsAdmin", "True"))
                             {
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Admin">Панель Администратора</a></li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Admin">
+                                        <svg width="16px" height="16px" viewBox="0 0 0.32 0.32" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#000000" fill-rule="evenodd" d="M0.201 0.2 0.117 0.283a0.057 0.057 0 1 1 -0.08 -0.08L0.12 0.119A0.09 0.09 0 0 1 0.248 0.029L0.205 0.071a0.03 0.03 0 1 0 0.043 0.043L0.291 0.071a0.1 0.1 0 0 1 0.009 0.048 0.09 0.09 0 0 1 -0.099 0.081M0.185 0.158 0.088 0.255A0.017 0.017 0 0 1 0.065 0.232L0.162 0.134z" />
+                                            </svg>
+                                        Панель Администратора
+                                    </a>
+                                </li>
                             }
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item m-0 p-0" onsubmit="return logoutAndReload()">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="dropdown-item">Выйти</button>
+                                    <button type="submit" class="dropdown-item d-flex align-items-center">
+                                        <svg width="16px" height="16px" viewBox="0 0 0.3 0.3" fill="none" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.02 0.02h0.14v0.02H0.04v0.22h0.12v0.02H0.02zm0.197 0.063 0.067 0.067 -0.067 0.072 -0.015 -0.014L0.247 0.16H0.08V0.14h0.166l-0.043 -0.043z" fill="#000000" />
+                                            </svg>
+                                        Выйти
+                                    </button>
                                 </form>
                             </li>
                         </ul>
                     </div>
+
                 }
                 else
                 {

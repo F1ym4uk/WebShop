@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Eup8G/I6f5zP9yFknWIEfCpXkNSnbr9kB8FSXX9PU/A=",
+  "Hash": "4sOb1E9KaWK+0QyCN+mq1GnA2T5eBECt2kFr4mrNK3I=",
   "Source": "webshop",
   "BasePath": "_content/webshop",
   "Mode": "Default",
@@ -74,25 +74,6 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\faviconold.ico",
-      "SourceId": "webshop",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\",
-      "BasePath": "_content/webshop",
-      "RelativePath": "faviconold.ico",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\faviconold.ico"
-    },
-    {
       "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Products\\36456c54-6e32-4936-ba95-ce429a7449af.png",
       "SourceId": "webshop",
       "SourceType": "Discovered",
@@ -131,12 +112,12 @@
       "OriginalItemSpec": "wwwroot\\images\\Products\\4584e9e8-47a7-452c-9e75-6b264d3a0127.jpg"
     },
     {
-      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\d6622e24-47d7-4565-a4cb-bf6395e2c8bd.png",
+      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\31123e27-2656-473b-af93-4034e1d281a6.jpg",
       "SourceId": "webshop",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\",
       "BasePath": "_content/webshop",
-      "RelativePath": "images/Users/d6622e24-47d7-4565-a4cb-bf6395e2c8bd.png",
+      "RelativePath": "images/Users/31123e27-2656-473b-af93-4034e1d281a6.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Users\\d6622e24-47d7-4565-a4cb-bf6395e2c8bd.png"
+      "OriginalItemSpec": "wwwroot\\images\\Users\\31123e27-2656-473b-af93-4034e1d281a6.jpg"
     },
     {
       "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\default.webp",
@@ -167,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Users\\default.webp"
+    },
+    {
+      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\e97f2ccc-24f2-4ead-9640-4624f62c3276.jpg",
+      "SourceId": "webshop",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\",
+      "BasePath": "_content/webshop",
+      "RelativePath": "images/Users/e97f2ccc-24f2-4ead-9640-4624f62c3276.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Users\\e97f2ccc-24f2-4ead-9640-4624f62c3276.jpg"
     },
     {
       "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\js\\site.js",

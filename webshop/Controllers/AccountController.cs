@@ -147,7 +147,7 @@ namespace webshop.Controllers
                 return View(model);
             }
 
-            await SignInUser(user, model.RememberMe); // Передача значения "Запомнить меня"
+            await SignInUser(user, model.RememberMe);
             return RedirectToAction("Index", "Home");
         }
 
@@ -168,8 +168,8 @@ namespace webshop.Controllers
 
             var authProperties = new AuthenticationProperties
             {
-                IsPersistent = rememberMe, // true - сохраняет куки после закрытия браузера
-                ExpiresUtc = rememberMe ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddHours(1) // 7 дней если запомнить, иначе 1 час
+                IsPersistent = rememberMe,
+                ExpiresUtc = rememberMe ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddHours(1)
             };
 
             await HttpContext.SignInAsync(
@@ -232,7 +232,6 @@ namespace webshop.Controllers
                         await imageFile.CopyToAsync(stream);
                     }
 
-                    // Удаляем старое изображение (если не default.webp)
                     if (!string.IsNullOrEmpty(user.Image) && user.Image != "default.webp")
                     {
                         string oldFilePath = Path.Combine(imagesPath, user.Image);
@@ -254,6 +253,8 @@ namespace webshop.Controllers
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
+            var userForReReg = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            await SignInUser(userForReReg, false);
             TempData["SuccessMessage"] = "Профиль успешно обновлён!";
             return RedirectToAction("Profile");
         }

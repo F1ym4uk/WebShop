@@ -9,10 +9,6 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\faviconold.ico",
-      "PackagePath": "staticwebassets\\faviconold.ico"
-    },
-    {
       "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Products\\36456c54-6e32-4936-ba95-ce429a7449af.png",
       "PackagePath": "staticwebassets\\images\\Products\\36456c54-6e32-4936-ba95-ce429a7449af.png"
     },
@@ -21,12 +17,16 @@
       "PackagePath": "staticwebassets\\images\\Products\\4584e9e8-47a7-452c-9e75-6b264d3a0127.jpg"
     },
     {
-      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\d6622e24-47d7-4565-a4cb-bf6395e2c8bd.png",
-      "PackagePath": "staticwebassets\\images\\Users\\d6622e24-47d7-4565-a4cb-bf6395e2c8bd.png"
+      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\31123e27-2656-473b-af93-4034e1d281a6.jpg",
+      "PackagePath": "staticwebassets\\images\\Users\\31123e27-2656-473b-af93-4034e1d281a6.jpg"
     },
     {
       "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\default.webp",
       "PackagePath": "staticwebassets\\images\\Users\\default.webp"
+    },
+    {
+      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\e97f2ccc-24f2-4ead-9640-4624f62c3276.jpg",
+      "PackagePath": "staticwebassets\\images\\Users\\e97f2ccc-24f2-4ead-9640-4624f62c3276.jpg"
     },
     {
       "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\js\\site.js",

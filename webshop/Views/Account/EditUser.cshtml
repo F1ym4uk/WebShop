@@ -25,37 +25,37 @@
 
     <div class="form-group">
         <label asp-for="Password" class="control-label"></label>
-        <input asp-for="Password" class="form-control" readonly />
+        <input asp-for="Password" class="form-control readonly" readonly />
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="PasswordResetToken" class="control-label"></label>
-        <input asp-for="PasswordResetToken" class="form-control" readonly />
+        <input asp-for="PasswordResetToken" class="form-control readonly" readonly />
         <span asp-validation-for="PasswordResetToken" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="PasswordResetTokenExpires" class="control-label"></label>
-        <input asp-for="PasswordResetTokenExpires" class="form-control" readonly />
+        <input asp-for="PasswordResetTokenExpires" class="form-control readonly" readonly />
         <span asp-validation-for="PasswordResetTokenExpires" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="EmailConfirmationToken" class="control-label"></label>
-        <input asp-for="EmailConfirmationToken" class="form-control" readonly />
+        <input asp-for="EmailConfirmationToken" class="form-control readonly" readonly />
         <span asp-validation-for="EmailConfirmationToken" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="EmailConfirmationTokenExpires" class="control-label"></label>
-        <input asp-for="EmailConfirmationTokenExpires" class="form-control" readonly />
+        <input asp-for="EmailConfirmationTokenExpires" class="form-control readonly" readonly />
         <span asp-validation-for="EmailConfirmationTokenExpires" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="IsEmailConfirmed" class="control-label"></label>
-        <input asp-for="IsEmailConfirmed" class="form-control" value="@(Model.IsEmailConfirmed ?? false ? "Да" : "Нет")" readonly />
+        <input asp-for="IsEmailConfirmed" class="form-control readonly" value="@(Model.IsEmailConfirmed ?? false ? "Да" : "Нет")" readonly />
         <span asp-validation-for="IsEmailConfirmed" class="text-danger"></span>
     </div>
 
@@ -84,5 +84,5 @@
 </form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -11,6 +11,7 @@ namespace webshop.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(43)]
         public string Description { get; set; } = string.Empty;
 
         [Required]

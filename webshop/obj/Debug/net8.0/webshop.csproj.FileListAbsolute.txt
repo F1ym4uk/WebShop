@@ -434,3 +434,4 @@ D:\!Колледж\C#\webshop\webshop\webshop\obj\Debug\net8.0\refint\webshop.dl
 D:\!Колледж\C#\webshop\webshop\webshop\obj\Debug\net8.0\webshop.pdb
 D:\!Колледж\C#\webshop\webshop\webshop\obj\Debug\net8.0\webshop.genruntimeconfig.cache
 D:\!Колледж\C#\webshop\webshop\webshop\obj\Debug\net8.0\ref\webshop.dll
+D:\!Колледж\C#\webshop\webshop\webshop\obj\Debug\net8.0\webshop.sourcelink.json

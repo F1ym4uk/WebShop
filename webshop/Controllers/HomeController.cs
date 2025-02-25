@@ -1,15 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webshop.Data;
-using webshop.Models;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace webshop.Controllers
 {
@@ -63,6 +54,7 @@ namespace webshop.Controllers
         }
 
 
+
         //Get [Load Products]
         [HttpGet]
         public async Task<IActionResult> LoadProducts(string category, string name, decimal? minPrice, decimal? maxPrice, int skip, int take)
@@ -107,9 +99,6 @@ namespace webshop.Controllers
 
 
 
-
-
-
         // Details of Product
         public async Task<IActionResult> Details(int id)
         {
@@ -121,6 +110,14 @@ namespace webshop.Controllers
             }
             return View(product);
         }
+
+        //Get [About As]
+        [HttpGet]
+        public IActionResult AboutAs()
+        {
+            return View();
+        }
+
 
     }
 }
