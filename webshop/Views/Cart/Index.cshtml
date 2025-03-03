@@ -6,6 +6,11 @@
 
 <h2>Ваша корзина</h2>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
 @if (!Model.Any())
 {
     <p>Корзина пуста.</p>
@@ -51,7 +56,6 @@ else
                             <input type="hidden" name="id" value="@item.Product.Id" />
                             <button type="submit" class="btn btn-link btn-sm">Перейти к товару</button>
                         </form>
-                    </td>
                     </td>
                 </tr>
             }

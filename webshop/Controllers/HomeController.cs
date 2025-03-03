@@ -23,7 +23,7 @@ namespace webshop.Controllers
         // Home Catalog
         public async Task<IActionResult> Index(string category, string name, decimal? minPrice, decimal? maxPrice)
         {
-            var productsQuery = _context.Products.AsQueryable();
+            var productsQuery = _context.Products.Where(p => p.StockQuantity > 0).AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
                 productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(name.ToLower()));
@@ -43,12 +43,8 @@ namespace webshop.Controllers
             ViewBag.SelectedCategory = category;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
-            ViewBag.Names = await _context.Products.Select(p => p.Name).Distinct().ToListAsync();
-            ViewBag.Categories = await productsQuery
-                .Select(p => p.Category)
-                .Distinct()
-                .ToListAsync();
-
+            ViewBag.Names = await _context.Products.Where(p => p.StockQuantity > 0).Select(p => p.Name).Distinct().ToListAsync();
+            ViewBag.Categories = await productsQuery.Select(p => p.Category).Distinct().ToListAsync();
 
             return View(products);
         }
@@ -59,7 +55,7 @@ namespace webshop.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadProducts(string category, string name, decimal? minPrice, decimal? maxPrice, int skip, int take)
         {
-            var productsQuery = _context.Products.AsQueryable();
+            var productsQuery = _context.Products.Where(p => p.StockQuantity > 0).AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
                 productsQuery = productsQuery.Where(p => p.Name.Contains(name));

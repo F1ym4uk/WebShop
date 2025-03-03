@@ -24,10 +24,7 @@ body {
 
 .card {
     width: 15em;
-    background-color: #252525;
     border-radius: 7px;
-    cursor: pointer;
-    color: white;
 }
 
     .card.show {

@@ -25,8 +25,7 @@ namespace webshop.Models
         public string Category { get; set; } = string.Empty;
 
         [Required]
-        public string Tags { get; set; } = string.Empty;
+        [Range(0, int.MaxValue, ErrorMessage = "Количество товаров не может быть отрицательным")]
+        public int StockQuantity { get; set; }
     }
-
-
 }

@@ -2,6 +2,13 @@
 
 <h1>Каталог</h1>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-secondary">@TempData["ErrorMessage"]</div>
+}
+
+
+
 <div class="row">
     <div class="col-md-3">
         <form method="get" asp-controller="Home" asp-action="Index" class="sticky-top bg-light p-3">
@@ -28,7 +35,7 @@
             <input type="number" name="maxPrice" class="form-control mb-3" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
             <button type="submit" class="btn btn-primary">Фильтр</button>
         </form>
-    </div>
+    </div>  
 
     <div class="col-md-9">
         <div id="product-list" class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;"></div>
@@ -43,7 +50,7 @@
 
 <script>
     let skip = $('.product-card').length;
-    const take = 12;
+    const take = 15;
     let isLoading = false;
     let hasMore = true;
 
@@ -85,14 +92,10 @@
                         );
 
                         let addToCartForm = $(
-                            `<form action="/Cart/AddToCart" method="post">
-                                 <input type="hidden" name="productId" value="${product.id}" />
-                                 <div class="form-group">
-                                     <label>Количество:</label>
-                                     <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 100px;" />
-                                 </div>
-                                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
-                             </form>`
+                            `<form class="add-to-cart-form" method="post">
+                                <input type="hidden" name="productId" value="${product.id}" />
+                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                            </form>`
                         );
 
                         productCard.find('.content').append(detailsForm); 

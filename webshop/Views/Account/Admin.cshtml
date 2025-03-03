@@ -39,7 +39,6 @@
             <th>Цена (BYN)</th>
             <th>Картинка</th>
             <th>Категория</th>
-            <th>Тег</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -62,7 +61,6 @@
                     }
                 </td>
                 <td>@product.Category</td>
-                <td>@product.Tags</td>
                 <td>
                     <form asp-action="DeleteProduct" method="post">
                         <input type="hidden" name="id" value="@product.Id" />

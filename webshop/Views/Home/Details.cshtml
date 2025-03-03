@@ -12,19 +12,11 @@
         <div class="col-md-6">
             <h1 class="display-5">@Model.Name</h1>
             <p class="text-muted">Категория: @Model.Category</p>
-            @if (!string.IsNullOrEmpty(Model.Tags))
-            {
-                <p><strong>Теги:</strong> @Model.Tags</p>
-            }
             <h3 class="text-success mb-3">Цена: @Model.Price р.</h3>
             <p>@Model.Description</p>
             <div class="d-flex gap-2 mt-4">
-                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <form class="add-to-cart-form" method="post">
                     <input type="hidden" name="productId" value="@Model.Id" />
-                    <div class="form-group">
-                        <label for="quantity">Количество:</label>
-                        <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 100px;" />
-                    </div>
                     <button type="submit" class="btn btn-primary">Добавить в корзину</button>
                 </form>
             </div>

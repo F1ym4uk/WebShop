@@ -45,7 +45,13 @@ namespace webshop.Controllers
 
             if (_context.Users.Any(u => u.Email == model.Email))
             {
-                ModelState.AddModelError("Email", "Email уже зарегестрирован.");
+                ModelState.AddModelError("Email", "Email уже зарегистрирован.");
+                return View(model);
+            }
+
+            if (_context.Users.Any(u => u.PhoneNumber == model.PhoneNumber))
+            {
+                ModelState.AddModelError("PhoneNumber", "Этот номер телефона уже используется.");
                 return View(model);
             }
 
@@ -78,10 +84,11 @@ namespace webshop.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                 Image = imageFileName,
                 Isadmin = false,
-                IsEmailConfirmed = false, 
+                IsEmailConfirmed = false,
                 EmailConfirmationToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
                 EmailConfirmationTokenExpires = DateTime.UtcNow.AddHours(1)
             };
@@ -215,6 +222,7 @@ namespace webshop.Controllers
             if (user == null) return NotFound();
 
             user.Name = model.Name;
+            user.PhoneNumber = model.PhoneNumber;
 
             if (imageFile != null && imageFile.Length > 0)
             {
@@ -431,11 +439,6 @@ namespace webshop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(int id, string isadmin, User user, IFormFile imageFile)
         {
-            if (id != user.Id)
-            {
-                _logger.LogError($"Product ID mismatch. Provided: {id}, Product: {user.Id}");
-                return BadRequest();
-            }
 
             var existingUser = await _context.Users.FindAsync(id);
             if (existingUser == null)
@@ -446,7 +449,7 @@ namespace webshop.Controllers
 
             existingUser.Name = user.Name;
             existingUser.Email = user.Email;
-            existingUser.Password = user.Password;
+            existingUser.PhoneNumber = user.PhoneNumber;
             if ((!string.IsNullOrEmpty(isadmin)) && (isadmin == "Да")) existingUser.Isadmin = true;
             if ((!string.IsNullOrEmpty(isadmin)) && (isadmin == "Нет")) existingUser.Isadmin = false;
 
@@ -645,7 +648,6 @@ namespace webshop.Controllers
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
             existingProduct.Category = product.Category;
-            existingProduct.Tags = product.Tags;
 
             if (imageFile != null)
             {
@@ -696,12 +698,7 @@ namespace webshop.Controllers
 
             return View(product);
         }
-
-
-
-
-
-
+    
 
     }
 

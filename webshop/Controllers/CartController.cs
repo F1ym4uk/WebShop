@@ -26,7 +26,7 @@ namespace webshop.Controllers
 
         // POST: Cart/AddToCart
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int quantity)
+        public async Task<IActionResult> AddToCart(int productId)
         {
             var product = await GetProductById(productId);
             if (product == null)
@@ -39,16 +39,33 @@ namespace webshop.Controllers
 
             if (existingItem != null)
             {
-                existingItem.Quantity += quantity;
+                if (existingItem.Quantity < product.StockQuantity)
+                {
+                    existingItem.Quantity++;
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
-                cart.Add(new CartItem { Product = product, Quantity = quantity });
+                if (product.StockQuantity > 0)
+                {
+                    cart.Add(new CartItem { Product = product, Quantity = 1 });
+                }
+                else
+                {
+                    return View();
+                }
             }
 
             SaveCartToCookie(cart);
-            return RedirectToAction("Index", "Home");
+            return Json(new { success = true, cartCount = cart.Sum(item => item.Quantity) });
         }
+
+
+
 
         // POST: [Remove from Cart]
         [HttpPost]
@@ -92,16 +109,29 @@ namespace webshop.Controllers
 
         // POST [Increasing Quantity]
         [HttpPost]
-        public IActionResult IncreasingQuantity(int id)
+        public async Task<IActionResult> IncreasingQuantity(int id)
         {
-            var cart = GetCartFromCookie();
-            var itemToDecrease = cart.FirstOrDefault(item => item.Product.Id == id);
-
-            if (itemToDecrease != null)
+            var product = await GetProductById(id);
+            if (product == null)
             {
-                itemToDecrease.Quantity += 1;
+                return NotFound();
+            }
 
-                SaveCartToCookie(cart);
+            var cart = GetCartFromCookie();
+            var item = cart.FirstOrDefault(item => item.Product.Id == id);
+
+            if (item != null)
+            {
+                if (item.Quantity < product.StockQuantity)
+                {
+                    item.Quantity++;
+                    SaveCartToCookie(cart);
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Товар закончился на складе!";
+                    return RedirectToAction("Index");
+                }
             }
 
             return RedirectToAction("Index");

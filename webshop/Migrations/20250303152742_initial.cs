@@ -22,11 +22,11 @@ namespace webshop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "longtext", nullable: false),
+                    Description = table.Column<string>(type: "varchar(43)", maxLength: 43, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Image = table.Column<string>(type: "longtext", nullable: false),
                     Category = table.Column<string>(type: "longtext", nullable: false),
-                    Tags = table.Column<string>(type: "longtext", nullable: false)
+                    StockQuantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,13 +43,14 @@ namespace webshop.Migrations
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Image = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: false),
+                    Image = table.Column<string>(type: "longtext", nullable: false),
                     Isadmin = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     PasswordResetToken = table.Column<string>(type: "longtext", nullable: true),
                     PasswordResetTokenExpires = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    EmailConfirmationToken = table.Column<string>(type: "longtext", nullable: false),
+                    EmailConfirmationToken = table.Column<string>(type: "longtext", nullable: true),
                     EmailConfirmationTokenExpires = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsEmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    IsEmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: true)
                 },
                 constraints: table =>
                 {

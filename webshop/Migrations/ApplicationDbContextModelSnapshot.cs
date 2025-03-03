@@ -31,7 +31,8 @@ namespace webshop.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(43)
+                        .HasColumnType("varchar(43)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -45,9 +46,8 @@ namespace webshop.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -66,7 +66,6 @@ namespace webshop.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("EmailConfirmationToken")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("EmailConfirmationTokenExpires")
@@ -74,10 +73,9 @@ namespace webshop.Migrations
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
-                    b.Property<bool>("IsEmailConfirmed")
+                    b.Property<bool?>("IsEmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("Isadmin")
@@ -98,6 +96,10 @@ namespace webshop.Migrations
 
                     b.Property<DateTime?>("PasswordResetTokenExpires")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
