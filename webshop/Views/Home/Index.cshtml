@@ -127,15 +127,4 @@
         }
     });
 
-    $(document).ready(function () {
-        loadProducts();
-
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-            $('#product-list').empty();
-            skip = 0;
-            hasMore = true;
-            loadProducts();
-        });
-    });
 </script>

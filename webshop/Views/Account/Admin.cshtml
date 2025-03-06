@@ -10,25 +10,41 @@
 <br />
 <a asp-area="" asp-controller="Account" asp-action="AdminUsers" class="btn btn-success mb-3">Show users</a>
 
-<form method="get">
-    <input type="text" id="name" name="name" autocomplete="off" list="nameList" placeholder="Название" value="@ViewBag.SelectedName" />
-    <datalist id="nameList">
-        @foreach (var cat in ViewBag.Names)
-        {
-            <option value="@cat"></option>
-        }
-    </datalist>
-    <input type="text" id="category" name="category" autocomplete="off" list="categoryList" placeholder="Категория" value="@ViewBag.SelectedCategory" />
-    <datalist id="categoryList">
-        @foreach (var cat in ViewBag.Categories)
-        {
-            <option value="@cat"></option>
-        }
-    </datalist>
-    <input type="number" name="minPrice" autocomplete="off" placeholder="Минимальная цена" />
-    <input type="number" name="maxPrice" autocomplete="off" placeholder="Максимальная цена" />
-    <button type="submit">Filter</button>
-</form>
+    <div class="col-md-12">
+    <form method="get" class="sticky-top bg-light p-3">
+        <h5>Фильтры</h5>
+        <div class="row gx-2">
+            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                <input type="text" name="name" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" list="nameList" autocomplete="off" />
+                <datalist id="nameList">
+                    @foreach (var name in ViewBag.Names)
+                    {
+                            <option value="@name"></option>
+                    }
+                </datalist>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                <input type="text" name="category" class="form-control" placeholder="Категория" value="@ViewBag.SelectedCategory" list="categoryList" autocomplete="off" />
+                <datalist id="categoryList">
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                            <option value="@cat"></option>
+                    }
+                </datalist>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12 mb-2">
+                <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+            </div>
+            <div class="col-lg-2 col-md-6 col-12 mb-2">
+                <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+            </div>
+            <div class="col-lg-2 col-md-12 text-md-end text-center">
+                <button type="submit" class="btn btn-primary w-100">Фильтр</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 
 <table class="table">
     <thead>
@@ -39,6 +55,7 @@
             <th>Цена (BYN)</th>
             <th>Картинка</th>
             <th>Категория</th>
+            <th>Количество</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -61,16 +78,18 @@
                     }
                 </td>
                 <td>@product.Category</td>
+                <td>@product.StockQuantity</td>
                 <td>
                     <form asp-action="DeleteProduct" method="post">
                         <input type="hidden" name="id" value="@product.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        <button type="submit" class="btn btn-danger btn-sm w-100">Удалить</button>
                     </form>
-                    <form asp-action="EditProduct" method="get">
+                    <form asp-action="EditProduct" method="get" class="mt-2">
                         <input type="hidden" name="id" value="@product.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Изменить</button>
+                        <button type="submit" class="btn btn-danger btn-sm w-100">Изменить</button>
                     </form>
                 </td>
+
             </tr>
         }
     </tbody>

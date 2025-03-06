@@ -9,14 +9,12 @@ namespace webshop.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly ILogger<AccountController> _logger;
 
 
-        public HomeController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, ILogger<AccountController> logger)
+        public HomeController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
-            _logger = logger;
         }
 
 
@@ -29,7 +27,7 @@ namespace webshop.Controllers
                 productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(name.ToLower()));
 
             if (!string.IsNullOrEmpty(category))
-                productsQuery = productsQuery.Where(p => p.Category == category);
+                productsQuery = productsQuery.Where(p => p.Category.ToLower().Contains(category.ToLower()));
 
             if (minPrice.HasValue)
                 productsQuery = productsQuery.Where(p => p.Price >= minPrice.Value);
@@ -43,7 +41,7 @@ namespace webshop.Controllers
             ViewBag.SelectedCategory = category;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
-            ViewBag.Names = await _context.Products.Where(p => p.StockQuantity > 0).Select(p => p.Name).Distinct().ToListAsync();
+            ViewBag.Names = await productsQuery.Select(p => p.Name).Distinct().ToListAsync();
             ViewBag.Categories = await productsQuery.Select(p => p.Category).Distinct().ToListAsync();
 
             return View(products);
@@ -61,7 +59,7 @@ namespace webshop.Controllers
                 productsQuery = productsQuery.Where(p => p.Name.Contains(name));
 
             if (!string.IsNullOrEmpty(category))
-                productsQuery = productsQuery.Where(p => p.Category == category);
+                productsQuery = productsQuery.Where(p => p.Category.Contains(category));
 
             if (minPrice.HasValue)
                 productsQuery = productsQuery.Where(p => p.Price >= minPrice.Value);
@@ -101,7 +99,6 @@ namespace webshop.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
             return View(product);

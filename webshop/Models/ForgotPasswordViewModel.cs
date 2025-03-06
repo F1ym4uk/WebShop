@@ -4,7 +4,7 @@ namespace webshop.Models
 {
     public class ForgotPasswordViewModel
     {
-        [Required(ErrorMessage = "Поле `Электронная почта` является обязательным")]
+        [Required(ErrorMessage = "Обязательное поле!")]
         [EmailAddress(ErrorMessage = "Некорректный email.")]
         public string Email { get; set; }
     }

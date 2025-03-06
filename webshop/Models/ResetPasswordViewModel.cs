@@ -4,16 +4,16 @@ namespace webshop.Models
 {
     public class ResetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле!")]
         public string Token { get; set; }
 
-        [Required(ErrorMessage = "Поле `Пароль` является обязательным")]
+        [Required(ErrorMessage = "Обязательное поле!")]
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Пароль должен содержать минимум 6 символов.")]
         [Display(Name = "Пароль")]
         public string NewPassword { get; set; }
 
-        [Required(ErrorMessage = "Поле `Электронная почта` является обязательным")]
+        [Required(ErrorMessage = "Обязательное поле!")]
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "Пароли не совпадают.")]
         [Display(Name = "Повторите пароль")]

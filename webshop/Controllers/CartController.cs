@@ -17,10 +17,30 @@ namespace webshop.Controllers
         {
             _context = context;
         }
+
+
         // GET [Index]
         public IActionResult Index()
         {
             var cart = GetCartFromCookie();
+            bool cartUpdated = false;
+
+            foreach (var item in cart)
+            {
+                var product = _context.Products.FirstOrDefault(p => p.Id == item.Product.Id);
+                if (product != null && item.Quantity > product.StockQuantity)
+                {
+                    item.Quantity = product.StockQuantity;
+                    cartUpdated = true;
+                }
+            }
+
+            if (cartUpdated)
+            {
+                SaveCartToCookie(cart);
+                TempData["ErrorMessage"] = "Количество некоторых товаров было уменьшено до доступного на складе.";
+            }
+
             return View(cart);
         }
 
@@ -63,7 +83,6 @@ namespace webshop.Controllers
             SaveCartToCookie(cart);
             return Json(new { success = true, cartCount = cart.Sum(item => item.Quantity) });
         }
-
 
 
 

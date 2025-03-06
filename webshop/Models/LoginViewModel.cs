@@ -4,11 +4,11 @@ namespace webshop.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Поле `Электронная почта` является обязательным")]
+        [Required(ErrorMessage = "Обязательное поле!")]
         [EmailAddress(ErrorMessage = "Некорректный email.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Поле `Пароль` является обязательным")]
+        [Required(ErrorMessage = "Обязательное поле!")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

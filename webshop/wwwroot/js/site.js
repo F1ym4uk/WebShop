@@ -9,6 +9,24 @@ function logoutAndReload() {
 }
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const stockInput = document.getElementById("stockQuantityInput");
+    const errorSpan = document.getElementById("customError");
+
+    stockInput.addEventListener("input", function () {
+        if (this.value === "" || isNaN(this.value)) {
+            errorSpan.textContent = "Введите корректное число!";
+        } else {
+            errorSpan.textContent = "";
+        }
+    });
+
+    stockInput.addEventListener("invalid", function (e) {
+        e.preventDefault(); // Блокируем стандартное сообщение
+        errorSpan.textContent = "Введите корректное число!";
+    });
+});
+
 
 
 

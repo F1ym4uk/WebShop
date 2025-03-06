@@ -16,15 +16,13 @@ namespace webshop.Controllers
         
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly ILogger<AccountController> _logger;
         private readonly EmailService _emailService;
         private const string CartCookieName = "UserCart";
 
-        public AccountController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, ILogger<AccountController> logger, EmailService emailService)
+        public AccountController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, EmailService emailService)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
-            _logger = logger;
             _emailService = emailService;
         }
 
@@ -74,7 +72,6 @@ namespace webshop.Controllers
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка при сохранении изображения.");
                     ModelState.AddModelError("Image", "Не удалось загрузить изображение.");
                     return View(model);
                 }
@@ -159,7 +156,7 @@ namespace webshop.Controllers
         }
 
 
-        // Sign in
+        // [Sign in]
         private async Task SignInUser(User user, bool rememberMe)
         {
             var claims = new List<Claim>
@@ -207,8 +204,6 @@ namespace webshop.Controllers
             var user = await _context.Users.FindAsync(int.Parse(userId));
             return user == null ? NotFound() : View(user);
         }
-
-
 
         // POST [Account/Profile]
         [HttpPost]
@@ -356,26 +351,34 @@ namespace webshop.Controllers
                 return Forbid();
             }
 
-            var categories = await _context.Products.Select(p => p.Category).Distinct().ToListAsync();
-            var names = await _context.Products.Select(p => p.Name).Distinct().ToListAsync();
+            var productsQuery = _context.Products.AsQueryable();
 
-            var products = _context.Products.AsQueryable();
-            if (!string.IsNullOrEmpty(category)) products = products.Where(p => p.Category == category);
-            if (!string.IsNullOrEmpty(name)) products = products.Where(p => p.Name == name);
-            if (minPrice.HasValue) products = products.Where(p => p.Price >= minPrice.Value);
-            if (maxPrice.HasValue) products = products.Where(p => p.Price <= maxPrice.Value);
+            if (!string.IsNullOrEmpty(name))
+                productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(name.ToLower()));
 
-            ViewBag.Categories = categories;
+            if (!string.IsNullOrEmpty(category))
+                productsQuery = productsQuery.Where(p => p.Category.ToLower().Contains(category.ToLower()));
+
+            if (minPrice.HasValue)
+                productsQuery = productsQuery.Where(p => p.Price >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                productsQuery = productsQuery.Where(p => p.Price <= maxPrice.Value);
+
+            var products = await productsQuery.ToListAsync();
+
+            ViewBag.Categories = await _context.Products.Select(p => p.Category).Distinct().ToListAsync();
+            ViewBag.Names = await _context.Products.Select(p => p.Name).Distinct().ToListAsync();
             ViewBag.SelectedCategory = category;
-            ViewBag.Names = names;
             ViewBag.SelectedName = name;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
 
-            return View(products.ToList());
+            return View(products);
         }
 
-        //Get [Users] for admin panel
+
+        //Get [Users for admin panel]
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AdminUsers(string email, bool isadmin)
@@ -427,7 +430,6 @@ namespace webshop.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                _logger.LogWarning($"User with ID {id} not found.");
                 return NotFound();
             }
             return View(user);
@@ -443,7 +445,6 @@ namespace webshop.Controllers
             var existingUser = await _context.Users.FindAsync(id);
             if (existingUser == null)
             {
-                _logger.LogWarning($"User with ID {id} not found during update.");
                 return NotFound();
             }
 
@@ -472,16 +473,13 @@ namespace webshop.Controllers
                         if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
-                            _logger.LogInformation($"Old image {existingUser.Image} deleted.");
                         }
                     }
 
                     existingUser.Image = newFileName;
-                    _logger.LogInformation($"Image updated: {newFileName}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error saving new image.");
                     ModelState.AddModelError("", "Ошибка при сохранении изображения.");
                     return View(user);
                 }
@@ -491,12 +489,10 @@ namespace webshop.Controllers
             {
                 _context.Users.Update(existingUser);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation($"Product {existingUser.Name} updated successfully.");
                 return RedirectToAction("AdminUsers");
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error updating product.");
                 ModelState.AddModelError("", "Ошибка при сохранении изменений.");
             }
 
@@ -540,9 +536,6 @@ namespace webshop.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product, IFormFile imageFile)
         {
-            _logger.LogInformation("AddProduct action called.");
-
-
             if (imageFile != null)
             {
                 string extension = Path.GetExtension(imageFile.FileName);
@@ -562,27 +555,22 @@ namespace webshop.Controllers
                         await imageFile.CopyToAsync(stream);
                     }
                     product.Image = newFileName;
-                    _logger.LogInformation($"Image saved successfully to {filePath}. product.Image = {product.Image}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error saving image.");
                     ModelState.AddModelError("", "Ошибка при сохранении изображения.");
                     return View(product);
                 }
             }
-            _logger.LogInformation($"\n\n{product.Image}\n\n");
 
             try
             {
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation($"Product {product.Name} added successfully.");
                 return RedirectToAction(nameof(Admin));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error adding product.");
                 ModelState.AddModelError("", "Ошибка при сохранении товара.");
             }
 
@@ -620,7 +608,6 @@ namespace webshop.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
             return View(product);
@@ -633,20 +620,19 @@ namespace webshop.Controllers
         {
             if (id != product.Id)
             {
-                _logger.LogError($"Product ID mismatch. Provided: {id}, Product: {product.Id}");
                 return BadRequest();
             }
 
             var existingProduct = await _context.Products.FindAsync(id);
             if (existingProduct == null)
             {
-                _logger.LogWarning($"Product with ID {id} not found during update.");
                 return NotFound();
             }
 
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
+            existingProduct.StockQuantity = product.StockQuantity;
             existingProduct.Category = product.Category;
 
             if (imageFile != null)
@@ -668,16 +654,13 @@ namespace webshop.Controllers
                         if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
-                            _logger.LogInformation($"Old image {existingProduct.Image} deleted.");
                         }
                     }
 
                     existingProduct.Image = newFileName;
-                    _logger.LogInformation($"Image updated: {newFileName}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error saving new image.");
                     ModelState.AddModelError("", "Ошибка при сохранении изображения.");
                     return View(product);
                 }
@@ -687,12 +670,10 @@ namespace webshop.Controllers
             {
                 _context.Products.Update(existingProduct);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation($"Product {existingProduct.Name} updated successfully.");
                 return RedirectToAction("Admin");
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error updating product.");
                 ModelState.AddModelError("", "Ошибка при сохранении изменений.");
             }
 
