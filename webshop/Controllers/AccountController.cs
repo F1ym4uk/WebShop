@@ -39,7 +39,12 @@ namespace webshop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+
+            if (String.IsNullOrWhiteSpace(model.Password))
+            {
+                ModelState.AddModelError("Password", "Обязательное поле!");
+                return View(model);
+            }
 
             if (_context.Users.Any(u => u.Email == model.Email))
             {
@@ -129,7 +134,10 @@ namespace webshop.Controllers
 
         // GET [Login]
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         // POST [Login]
         [HttpPost]
