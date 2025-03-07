@@ -12,49 +12,49 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="Name" class="control-label">Имя</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
+        <label asp-for="Email" class="control-label">Почта</label>
         <input asp-for="Email" class="form-control">
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
+        <label asp-for="PhoneNumber" class="control-label">Номер телефона</label>
         <input asp-for="PhoneNumber" type="tel" class="form-control" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="PasswordResetToken" class="control-label"></label>
+        <label asp-for="PasswordResetToken" class="control-label">Токен восстановления пароля</label>
         <input asp-for="PasswordResetToken" class="form-control readonly" readonly />
         <span asp-validation-for="PasswordResetToken" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="PasswordResetTokenExpires" class="control-label"></label>
+        <label asp-for="PasswordResetTokenExpires" class="control-label">Дата создания токена восстановления пароля</label>
         <input asp-for="PasswordResetTokenExpires" class="form-control readonly" readonly />
         <span asp-validation-for="PasswordResetTokenExpires" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="EmailConfirmationToken" class="control-label"></label>
+        <label asp-for="EmailConfirmationToken" class="control-label">Токен подтверждения почты</label>
         <input asp-for="EmailConfirmationToken" class="form-control readonly" readonly />
         <span asp-validation-for="EmailConfirmationToken" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="EmailConfirmationTokenExpires" class="control-label"></label>
+        <label asp-for="EmailConfirmationTokenExpires" class="control-label">Дата создания токена подтверждения почты</label>
         <input asp-for="EmailConfirmationTokenExpires" class="form-control readonly" readonly />
         <span asp-validation-for="EmailConfirmationTokenExpires" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="IsEmailConfirmed" class="control-label"></label>
+        <label asp-for="IsEmailConfirmed" class="control-label">Почта подтверждена?</label>
         <input asp-for="IsEmailConfirmed" class="form-control readonly" value="@(Model.IsEmailConfirmed ?? false ? "Да" : "Нет")" readonly />
         <span asp-validation-for="IsEmailConfirmed" class="text-danger"></span>
     </div>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Image" class="control-label">Current Image</label>
+        <label asp-for="Image" class="control-label">Текущий аватар</label>
         @if (!string.IsNullOrEmpty(Model.Image))
         {
             <div class="mb-2">
@@ -77,9 +77,10 @@
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    <br />
+    <div class="form-group d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <a asp-action="AdminUsers" class="btn btn-secondary">Вернуться назад</a>
     </div>
 </form>
 

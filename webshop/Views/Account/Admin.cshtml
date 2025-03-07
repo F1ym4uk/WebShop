@@ -4,47 +4,52 @@
     ViewData["Title"] = "Админ";
 }
 
-<h2>Admin Panel</h2>
-
-<a  asp-area="" asp-controller="Account" asp-action="AddProduct" class="btn btn-success mb-3">Add New Product</a>
+<h2>Панель Администратора(Продукты)</h2>
 <br />
-<a asp-area="" asp-controller="Account" asp-action="AdminUsers" class="btn btn-success mb-3">Show users</a>
 
-    <div class="col-md-12">
-    <form method="get" class="sticky-top bg-light p-3">
-        <h5>Фильтры</h5>
-        <div class="row gx-2">
-            <div class="col-lg-3 col-md-6 col-12 mb-2">
-                <input type="text" name="name" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" list="nameList" autocomplete="off" />
-                <datalist id="nameList">
-                    @foreach (var name in ViewBag.Names)
-                    {
-                            <option value="@name"></option>
-                    }
-                </datalist>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12 mb-2">
-                <input type="text" name="category" class="form-control" placeholder="Категория" value="@ViewBag.SelectedCategory" list="categoryList" autocomplete="off" />
-                <datalist id="categoryList">
-                    @foreach (var cat in ViewBag.Categories)
-                    {
-                            <option value="@cat"></option>
-                    }
-                </datalist>
-            </div>
-            <div class="col-lg-2 col-md-6 col-12 mb-2">
-                <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
-            </div>
-            <div class="col-lg-2 col-md-6 col-12 mb-2">
-                <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
-            </div>
-            <div class="col-lg-2 col-md-12 text-md-end text-center">
-                <button type="submit" class="btn btn-primary w-100">Фильтр</button>
-            </div>
-        </div>
-    </form>
+
+<div class="d-flex mt-3 w-100 justify-content-end">
+    <a asp-area="" asp-controller="Account" asp-action="AdminUsers" class="btn btn-success mb-3">Пользователи</a>
+    <a asp-area="" asp-controller="Account" asp-action="AddProduct" class="btn btn-success mb-3" style="margin-left: 1%;">Добавить товар</a>
 </div>
 
+<div class="col-md-12">
+    <form method="get" class="sticky-top bg-light p-3">
+        <div class="dropdown mb-3 position-relative">
+            <input type="text" name="name" id="nameInput" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" autocomplete="off" />
+            <button type="button" class="clear-btn" onclick="document.getElementById('nameInput').value = '';">&times;</button>
+            <div class="dropdown-menu w-100" id="nameDropdown">
+                <div class="dropdown-content">
+                    @foreach (var name in ViewBag.Names)
+                    {
+                        <button type="button" class="dropdown-item">@name</button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="dropdown mb-3 position-relative">
+            <input type="text" name="category" id="categoryInput" class="form-control" placeholder="Категория" value="@ViewBag.SelectedCategory" autocomplete="off" />
+            <button type="button" class="clear-btn" onclick="document.getElementById('categoryInput').value = '';">&times;</button>
+            <div class="dropdown-menu w-100" id="categoryDropdown">
+                <div class="dropdown-content">
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        <button type="button" class="dropdown-item">@cat</button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="price-filter mb-3">
+            <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+        </div>
+        <div class="price-filter mb-3">
+            <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn-primary">Фильтр</button>
+    </form>
+</div>
 
 <table class="table">
     <thead>
@@ -80,7 +85,7 @@
                 <td>@product.Category</td>
                 <td>@product.StockQuantity</td>
                 <td>
-                    <form asp-action="DeleteProduct" method="post">
+                    <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
                         <input type="hidden" name="id" value="@product.Id" />
                         <button type="submit" class="btn btn-danger btn-sm w-100">Удалить</button>
                     </form>

@@ -22,19 +22,6 @@ body {
 }
 
 
-.card {
-    width: 15em;
-    border-radius: 7px;
-}
-
-    .card.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-
-
-
 /* Styles for filters */
 .dropdown-menu {
     display: none;

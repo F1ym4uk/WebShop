@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webshop.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using webshop.Models;
 
 namespace webshop.Controllers
 {
@@ -49,7 +51,6 @@ namespace webshop.Controllers
 
 
 
-        //Get [Load Products]
         [HttpGet]
         public async Task<IActionResult> LoadProducts(string category, string name, decimal? minPrice, decimal? maxPrice, int skip, int take)
         {
@@ -83,13 +84,30 @@ namespace webshop.Controllers
                 })
                 .ToListAsync();
 
+            // ✅ Получаем корзину из cookies
+            var cartItems = GetCartFromCookie();
+            var cartProductIds = cartItems.Select(ci => ci.Product.Id).ToList();
+
             return Json(new
             {
                 products,
                 hasMore = skip + take < totalProducts,
-                isAuthenticated = User.Identity.IsAuthenticated
+                isAuthenticated = User.Identity.IsAuthenticated,
+                cartProductIds // ✅ Передаем товары, которые есть в корзине
             });
         }
+
+        // ✅ Добавляем метод для получения корзины из cookies
+        private List<CartItem> GetCartFromCookie()
+        {
+            var cartCookie = Request.Cookies["UserCart"];
+            if (string.IsNullOrEmpty(cartCookie))
+            {
+                return new List<CartItem>();
+            }
+            return JsonConvert.DeserializeObject<List<CartItem>>(cartCookie) ?? new List<CartItem>();
+        }
+
 
 
 

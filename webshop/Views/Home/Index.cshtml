@@ -33,11 +33,13 @@
                 </div>
             </div>
 
-            <div class="price-filter mb-3">
-                <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+            <div class="price-filter mb-3 position-relative">
+                <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Минимальная цена" value="@ViewBag.MinPrice" autocomplete="off" />
+                <button type="button" class="clear-btn" onclick="document.getElementById('minPrice').value = '';">&times;</button>
             </div>
-            <div class="price-filter mb-3">
-                <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+            <div class="price-filter mb-3 position-relative">
+                <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Максимальная цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+                <button type="button" class="clear-btn" onclick="document.getElementById('maxPrice').value = '';">&times;</button>
             </div>
             <button type="submit" class="btn btn-primary">Фильтр</button>
         </form>
@@ -52,8 +54,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script>
     let skip = $('.product-card').length;
@@ -79,42 +79,41 @@
         $.get('/Home/LoadProducts', { ...getFilters(), skip, take }, function (response) {
             if (response.products && response.products.length > 0) {
                 response.products.forEach((product, index) => {
+
+
                     let productCard = $(
-                        `<div class="card" id="card">
-                             <div class="content">
-                                 <img src="/images/Products/${product.image}" alt="${product.name}" style="max-width: 100%;" />
-                                 <h3>${product.name}</h3>
-                                 <p>${product.description}</p>
-                                 <p>${product.price} р.</p>
-                             </div>
-                         </div>`
+                        `<div class="card mb-4 box-shadow col-md-12">
+                            <img class="card-img-top" src="/images/Products/${product.image}" alt="${product.name}" style="height: 225px; width: 100%; display: block;">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text">${product.description}</p>
+                                <p class="card-text"><strong>${product.price} р.</strong></p>
+                                <div class="align-items-center">
+                                    ${response.isAuthenticated ?
+                                            `<form action="/Home/Details" method="get" class="mb-2">
+                                            <input type="hidden" name="id" value="${product.id}" />
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">Просмотреть</button>
+                                        </form>
+                                        <form class="add-to-cart-form w-100" method="post">
+                                            <input type="hidden" name="productId" value="${product.id}" />
+                                            <button type="submit" class="btn btn-sm btn-primary w-100">В корзину</button>
+                                        </form>
+                                        ${response.cartProductIds.includes(product.id) ?
+                                                '<span class="badge bg-success w-100 mt-2 text-center">В корзине</span>'
+                                                : ''}`
+                                            : ''}
+                                </div>
+                            </div>
+                        </div>`
                     );
-
-                    if (response.isAuthenticated) {
-                        let detailsForm = $(
-                            `<form action="/Home/Details" method="get">
-                                 <input type="hidden" name="id" value="${product.id}" />
-                                 <button type="submit" class="btn btn-link btn-sm">Просмотреть товар</button>
-                             </form>`
-                        );
-
-                        let addToCartForm = $(
-                            `<form class="add-to-cart-form" method="post">
-                                <input type="hidden" name="productId" value="${product.id}" />
-                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
-                            </form>`
-                        );
-
-                        productCard.find('.content').append(detailsForm); 
-                        productCard.find('.content').append(addToCartForm);
-
-                    }
-
 
 
                     $('#product-list').append(productCard);
-
                     setTimeout(() => productCard.addClass('show'), index * 100);
+
+
+
+
                 });
 
                 skip += take;

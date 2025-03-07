@@ -4,23 +4,31 @@
     ViewData["Title"] = "Админ";
 }
 
-<h2>Admin Panel</h2>
+<h2>Панель Администратора(Пользователи)</h2>
 
 @if (ViewBag.Message != null)
 {
     <div class="alert alert-success">@ViewBag.Message</div>
 }
 
-<form method="get">
-    <input type="text" id="email" name="email" autocomplete="off" list="categoryList" placeholder="Почта" value="@ViewBag.SelectedEmail" />
-    <datalist id="emailList">
-        @foreach (var cat in ViewBag.Emails)
-        {
-            <option value="@cat"></option>
-        }
-    </datalist>
-    <button type="submit">Filter</button>
-</form>
+<div class="d-flex mt-3 w-100 justify-content-end">
+    <a asp-area="" asp-controller="Account" asp-action="Admin" class="btn btn-success mb-3">Товары</a>
+</div>
+
+<div class="col-md-12">
+    <form method="get" asp-action="AdminUsers" class="sticky-top bg-light p-3">
+        <div class="dropdown mb-3 position-relative">
+            <input type="text" id="emailInput" name="emailInput" class="form-control" autocomplete="off" placeholder="Почта" />
+            <button type="button" class="clear-btn" onclick="document.getElementById('emailInput').value = '';">&times;</button>
+        </div>
+
+        <div class="dropdown mb-3 position-relative">
+            <input type="text" id="phoneNumberInput" name="phoneNumberInput" class="form-control" autocomplete="on" placeholder="Номер телефона" />
+            <button type="button" class="clear-btn" onclick="document.getElementById('phoneNumberInput').value = '';">&times;</button>
+        </div>
+        <button type="submit" class="btn btn-primary">Фильтр</button>
+    </form>
+</div>
 
 <table class="table">
     <thead>
@@ -75,24 +83,14 @@
                 <td>
                     <form asp-action="DeleteUser" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этого пользователя?');">
                         <input type="hidden" name="id" value="@user.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        <button type="submit" class="btn btn-danger btn-sm w-100">Удалить</button>
                     </form>
-                    <form asp-action="EditUser" method="get">
+                    <form asp-action="EditUser" method="get" class="mt-2">
                         <input type="hidden" name="id" value="@user.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Изменить</button>
+                        <button type="submit" class="btn btn-danger btn-sm w-100">Изменить</button>
                     </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-<script>
-    function copyLink(element) {
-        const link = element.href;
-        navigator.clipboard.writeText(link)
-            .then(() => alert('Ссылка скопирована!'))
-            .catch(err => console.error('Ошибка:', err));
-    }
-</script>

@@ -12,50 +12,51 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="Name" class="control-label">Название</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
+        <label asp-for="Description" class="control-label">Описание</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Category" class="control-label"></label>
+        <label asp-for="Category" class="control-label">Категория</label>
         <input asp-for="Category" class="form-control" />
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
+        <label asp-for="Price" class="control-label">Цена</label>
         <input asp-for="Price" type="number" step="0.01" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="StockQuantity" class="control-label"></label>
+        <label asp-for="StockQuantity" class="control-label">Количество на складе</label>
         <input asp-for="StockQuantity" type="number" class="form-control" id="stockQuantityInput" />
         <span id="customError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Image" class="control-label">Current Image</label>
+        <label asp-for="Image" class="control-label">Текущее изображение</label>
         @if (!string.IsNullOrEmpty(Model.Image))
         {
             <div class="mb-2">
-                <img src="~/images/@Model.Image" alt="Current Image" style="max-width: 200px; max-height: 200px;" />
+                <img src="~/images/Products/@Model.Image" alt="@Model.Name" style="max-width: 200px; max-height: 200px;" />
             </div>
         }
         <input type="file" name="imageFile" class="form-control" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    <br />
+    <div class="form-group d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <a asp-action="Admin" class="btn btn-secondary">Вернуться назад</a>
     </div>
 </form>
 

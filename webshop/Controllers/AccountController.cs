@@ -58,7 +58,7 @@ namespace webshop.Controllers
                 return View(model);
             }
 
-            string imageFileName = "default.png";
+            string imageFileName = "default.webp";
 
             if (model.Image != null && model.Image.Length > 0)
             {
@@ -386,12 +386,10 @@ namespace webshop.Controllers
         }
 
 
-        //Get [Users for admin panel]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AdminUsers(string email, bool isadmin)
+        public async Task<IActionResult> AdminUsers(string emailInput, string phoneNumberInput)
         {
-
             var isAdminClaim = User.Claims.FirstOrDefault(c => c.Type == "IsAdmin")?.Value;
 
             if (isAdminClaim == null || !bool.TryParse(isAdminClaim, out var isAdmin) || !isAdmin)
@@ -399,28 +397,22 @@ namespace webshop.Controllers
                 return Forbid();
             }
 
-            var emails = await _context.Users
-                .Select(p => p.Email)
-                .Distinct()
-                .ToListAsync();
-
             var users = _context.Users.AsQueryable();
 
-            if (!string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(emailInput))
             {
-                users = users.Where(p => p.Email == email);
+                users = users.Where(p => p.Email.Contains(emailInput));
             }
 
-            if (isadmin)
+            if (!string.IsNullOrEmpty(phoneNumberInput))
             {
-                users = users.Where(p => p.Isadmin);
+                users = users.Where(p => p.PhoneNumber.Contains(phoneNumberInput));
             }
 
-            ViewBag.Emails = emails;
-            ViewBag.Selectedemail = email;
-            
-            return View(users.ToList());
+            return View(await users.ToListAsync());
         }
+
+
 
 
         // Get [Edit User]
