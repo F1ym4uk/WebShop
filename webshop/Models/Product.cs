@@ -11,7 +11,6 @@ namespace webshop.Models
         public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Обязательное поле!")]
-        [StringLength(100)]
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Обязательное поле!")]

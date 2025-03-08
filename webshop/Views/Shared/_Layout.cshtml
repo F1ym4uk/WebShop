@@ -17,9 +17,7 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center mb-3 mb-md-0 link-body-emphasis text-decoration-none">
-                    <svg x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" class="logo__svg">
-                        <path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 12.380859 C 43.266738 11.541629 42.201883 11 41 11 L 9 11 C 7.7981175 11 6.7332621 11.541629 6 12.380859 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 15 17 C 15.553 17 16 17.448 16 18 C 16 22.962 20.037 27 25 27 C 29.963 27 34 22.962 34 18 C 34 17.448 34.447 17 35 17 C 35.553 17 36 17.448 36 18 C 36 24.065 31.065 29 25 29 C 18.935 29 14 24.065 14 18 C 14 17.448 14.447 17 15 17 z"></path>
-                    </svg>
+                    <svg width="50" height="50" viewBox="0 0 50 50"><path points="30,15 70,50 45,55 55,80 35,70 30,15" fill="#FF5722" d="M15 7.5L35 25L22.5 27.5L27.5 40L17.5 35L15 7.5Z" /><path x="10" y="10" width="8" height="8" fill="#FF5722" d="M5 5H9V9H5V5z" /><path x="82" y="82" width="8" height="8" fill="#FF5722" d="M41 41H45V45H41V41z" /></svg>
                     <span style="margin-left: 3%; font-size: 24px; color: black;">WebShop</span>
                 </a>
 
@@ -166,6 +164,9 @@
         </footer>
     </div>
 
+    <button id="scrollTopBtn" onclick="scrollToTop()">
+        <svg fill="#000000" width="40px" height="40px" viewBox="-0.25 -0.225 1.2 1.2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-arrow-up"><path d="M0.301 0.205 0.103 0.401A0.049 0.049 0 0 1 0.032 0.33L0.314 0.048a0.049 0.049 0 0 1 0.071 0l0.282 0.282a0.049 0.049 0 0 1 -0.071 0.071L0.4 0.205v0.479a0.049 0.049 0 1 1 -0.101 0z" /></svg>
+    </button>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js"></script>

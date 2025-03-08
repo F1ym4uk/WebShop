@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webshop.Models;
-using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using webshop.Data;
 
@@ -51,7 +49,7 @@ namespace webshop.Controllers
             var product = await GetProductById(productId);
             if (product == null)
             {
-                return NotFound();
+                return Json(new { success = false });
             }
 
             var cart = GetCartFromCookie();
@@ -65,7 +63,7 @@ namespace webshop.Controllers
                 }
                 else
                 {
-                    return View();
+                    return Json(new { success = false });
                 }
             }
             else
@@ -76,13 +74,14 @@ namespace webshop.Controllers
                 }
                 else
                 {
-                    return View();
+                    return Json(new { success = false });
                 }
             }
 
             SaveCartToCookie(cart);
             return Json(new { success = true, cartCount = cart.Sum(item => item.Quantity) });
         }
+
 
 
 

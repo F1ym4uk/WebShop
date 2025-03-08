@@ -385,7 +385,7 @@ namespace webshop.Controllers
             return View(products);
         }
 
-
+        // GET: [Admin Panel (Users)]
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AdminUsers(string emailInput, string phoneNumberInput)

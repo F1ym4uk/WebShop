@@ -4,52 +4,70 @@
     ViewData["Title"] = "Личный кабинет";
 }
 
-<h2 class="mb-4">Личный кабинет</h2>
+<h2 class="mb-4">Профиль</h2>
 
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
 }
 
-<form asp-controller="Account" asp-action="Profile" method="post" enctype="multipart/form-data">
-    <div class="form-group mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+<div class="p-4">
+    <div class="row align-items-stretch">
+        <div class="col-md-3 d-flex flex-column align-items-center">
+            <div class="position-relative w-100 h-100">
+                <input type="file" name="imageFile" id="imageFile" class="d-none" accept="image/*" onchange="previewImage(event)" />
+                <label for="imageFile" class="w-100 h-100 cursor-pointer">
+                    <div class="image-container position-relative w-100 h-100">
+                        <img id="profileImage"
+                             src="@(string.IsNullOrEmpty(Model.Image) ? "/images/Users/default.webp" : $"/images/Users/{Model.Image}")"
+                             alt="User Image"
+                             class="border w-100 h-100"
+                             style="object-fit: cover;" />
+                        <div class="overlay d-flex justify-content-center align-items-center text-white">
+                            <span>Изменить фото</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
 
-    <div class="form-group mb-3">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control readonly" readonly />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+        <div class="col-md-9 d-flex align-items-center">
+            <form asp-controller="Account" asp-action="Profile" method="post" enctype="multipart/form-data" class="w-100">
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" type="text" class="form-control" id="floatingName" placeholder="Имя" />
+                    <label for="floatingName">Имя</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" type="tel" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-    <br />
-    <div class="form-group mb-3">
-        <label class="form-label">Текущее изображение профиля</label><br />
-        @if (!string.IsNullOrEmpty(Model.Image))
-        {
-            <img src="~/images/Users/@Model.Image" alt="User Image" class="rounded" style="max-width: 150px; max-height: 150px;" />
-        }
-        else
-        {
-            <img src="~/images/Users/default.webp" alt="Default User Image" class="rounded" style="max-width: 150px; max-height: 150px;" />
-        }
-    </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" id="floatingPhone" placeholder="Телефон" />
+                    <label for="floatingPhone">Телефон</label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
 
-    <div class="form-group mb-4">
-        <label for="imageFile" class="form-label">Загрузить новое изображение</label>
-        <input type="file" name="imageFile" class="form-control" accept="image/*" />
-    </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" id="floatingEmail" readonly placeholder="Email" />
+                    <label for="floatingEmail">Email</label>
+                </div>
 
-    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-</form>
+                <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profileImage").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 }

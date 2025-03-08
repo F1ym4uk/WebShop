@@ -57,10 +57,10 @@ namespace webshop.Controllers
             var productsQuery = _context.Products.Where(p => p.StockQuantity > 0).AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
-                productsQuery = productsQuery.Where(p => p.Name.Contains(name));
+                productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(name.ToLower()));
 
             if (!string.IsNullOrEmpty(category))
-                productsQuery = productsQuery.Where(p => p.Category.Contains(category));
+                productsQuery = productsQuery.Where(p => p.Category.ToLower().Contains(category.ToLower()));
 
             if (minPrice.HasValue)
                 productsQuery = productsQuery.Where(p => p.Price >= minPrice.Value);
@@ -68,23 +68,13 @@ namespace webshop.Controllers
             if (maxPrice.HasValue)
                 productsQuery = productsQuery.Where(p => p.Price <= maxPrice.Value);
 
-            var totalProducts = await productsQuery.CountAsync();
+            var productList = await productsQuery.ToListAsync();
+            var totalProducts = productList.Count;
+            var products = productList.OrderBy(p => p.Id).Skip(skip).Take(take)
+                .Select(p => new { p.Id, p.Name, p.Description, p.Price, p.Image })
+                .ToList();
 
-            var products = await productsQuery
-                .OrderBy(p => p.Id)
-                .Skip(skip)
-                .Take(take)
-                .Select(p => new
-                {
-                    p.Id,
-                    p.Name,
-                    p.Description,
-                    p.Price,
-                    p.Image
-                })
-                .ToListAsync();
 
-            // ✅ Получаем корзину из cookies
             var cartItems = GetCartFromCookie();
             var cartProductIds = cartItems.Select(ci => ci.Product.Id).ToList();
 
@@ -93,11 +83,12 @@ namespace webshop.Controllers
                 products,
                 hasMore = skip + take < totalProducts,
                 isAuthenticated = User.Identity.IsAuthenticated,
-                cartProductIds // ✅ Передаем товары, которые есть в корзине
+                cartProductIds = User.Identity.IsAuthenticated ? cartProductIds : new List<int>()
             });
+
         }
 
-        // ✅ Добавляем метод для получения корзины из cookies
+        // Get cart from cookies
         private List<CartItem> GetCartFromCookie()
         {
             var cartCookie = Request.Cookies["UserCart"];
@@ -107,8 +98,6 @@ namespace webshop.Controllers
             }
             return JsonConvert.DeserializeObject<List<CartItem>>(cartCookie) ?? new List<CartItem>();
         }
-
-
 
 
         // Details of Product

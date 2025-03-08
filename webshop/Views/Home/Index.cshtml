@@ -3,7 +3,7 @@
 <h1>Каталог</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <form method="get" asp-controller="Home" asp-action="Index" class="sticky-top bg-light p-3">
             <h5>Фильтры</h5>
 
@@ -45,7 +45,7 @@
         </form>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div id="product-list" class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;"></div>
         <div id="no-products" style="display: block; text-align: center; margin-top: 20px; font-size: 18px; font-weight: bold;">Товаров не найдено</div>
 
@@ -62,12 +62,14 @@
     let hasMore = true;
 
     function getFilters() {
-        return {
+        let filters = {
             category: $('input[name="category"]').val(),
             name: $('input[name="name"]').val(),
             minPrice: $('input[name="minPrice"]').val(),
             maxPrice: $('input[name="maxPrice"]').val()
         };
+
+        return Object.fromEntries(Object.entries(filters).filter(([_, v]) => v !== ''));
     }
 
     function loadProducts() {
@@ -81,38 +83,43 @@
                 response.products.forEach((product, index) => {
 
 
-                    let productCard = $(
-                        `<div class="card mb-4 box-shadow col-md-12">
+                    let truncateText = (text, maxLength) => {
+                        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+                    };
+
+                    let productCard = $(`
+                        <div class="card mb-4 box-shadow col-md-12">
                             <img class="card-img-top" src="/images/Products/${product.image}" alt="${product.name}" style="height: 225px; width: 100%; display: block;">
                             <div class="card-body">
-                                <h5 class="card-title">${product.name}</h5>
-                                <p class="card-text">${product.description}</p>
+                                <h5 class="card-title" title="${product.name}">${truncateText(product.name, 40)}</h5>
+                                <p class="card-text" title="${product.description}">${truncateText(product.description, 50)}</p>
                                 <p class="card-text"><strong>${product.price} р.</strong></p>
                                 <div class="align-items-center">
                                     ${response.isAuthenticated ?
                                             `<form action="/Home/Details" method="get" class="mb-2">
-                                            <input type="hidden" name="id" value="${product.id}" />
-                                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">Просмотреть</button>
-                                        </form>
-                                        <form class="add-to-cart-form w-100" method="post">
-                                            <input type="hidden" name="productId" value="${product.id}" />
-                                            <button type="submit" class="btn btn-sm btn-primary w-100">В корзину</button>
-                                        </form>
-                                        ${response.cartProductIds.includes(product.id) ?
+                                                <input type="hidden" name="id" value="${product.id}" />
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary w-100">Просмотреть</button>
+                                            </form>
+                                                <form class="add-to-cart-form w-100" method="post">
+                                                <input type="hidden" name="productId" value="${product.id}" />
+                                                <button type="button" class="btn btn-sm btn-primary w-100 add-to-cart-btn" data-product-id="${product.id}">Добавить в корзину</button>
+                                            </form>
+                                            <div class="cart-badge-container">
+                                                ${response.cartProductIds.includes(product.id) ?
                                                 '<span class="badge bg-success w-100 mt-2 text-center">В корзине</span>'
-                                                : ''}`
+                                                : ''}
+                                            </div>`
                                             : ''}
                                 </div>
                             </div>
-                        </div>`
-                    );
+                        </div>
+                    `);
+
+
 
 
                     $('#product-list').append(productCard);
                     setTimeout(() => productCard.addClass('show'), index * 100);
-
-
-
 
                 });
 
@@ -128,10 +135,41 @@
 
     }
 
+    let scrollTimeout;
     $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-            loadProducts();
-        }
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                loadProducts();
+            }
+        }, 200);
     });
+
+    $(document).on('click', '.add-to-cart-btn', function () {
+        let button = $(this);
+        let productId = button.data('product-id');
+
+        $.ajax({
+            url: '/Cart/AddToCart',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    let cardBody = button.closest('.card-body');
+
+                    if (cardBody.find('.cart-badge-container .badge').length === 0) {
+                        cardBody.find('.cart-badge-container').html('<span class="badge bg-success w-100 mt-2 text-center">В корзине</span>');
+                    }
+                } else {
+                    alert('Ошибка при добавлении в корзину!');
+                }
+            },
+            error: function () {
+                alert('Ошибка! Попробуйте снова.');
+            }
+        });
+    });
+
+
 
 </script>

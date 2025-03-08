@@ -69,8 +69,8 @@
         {
             <tr>
                 <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Description</td>
+                <td>@Html.Raw(TruncateText(product.Name, 25))</td>
+                <td>@Html.Raw(TruncateText(product.Description, 30))</td>
                 <td>@product.Price</td>
                 <td>
                     @if (!string.IsNullOrEmpty(product.Image))
@@ -99,3 +99,10 @@
         }
     </tbody>
 </table>
+
+@functions {
+    public string TruncateText(string text, int maxLength)
+    {
+        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+    }
+}
