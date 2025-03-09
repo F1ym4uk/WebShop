@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FrJ5PKWOOdsRGFmrKyFFf5mTYE6ghb1z61BbnERIb1w=",
+  "Hash": "5wxV7NwNOsTGNS6l2gBVAJW6/j6sd4zMVeGfOvixk6U=",
   "Source": "webshop",
   "BasePath": "_content/webshop",
   "Mode": "Default",
@@ -283,25 +283,6 @@
       "OriginalItemSpec": "wwwroot\\images\\Products\\d599bc5d-6603-4a02-bfbe-6eaf5f9a1702.jpg"
     },
     {
-      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\d7a36a25-8852-4c96-8701-f5fb39f7a0da.jpg",
-      "SourceId": "webshop",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\",
-      "BasePath": "_content/webshop",
-      "RelativePath": "images/Users/d7a36a25-8852-4c96-8701-f5fb39f7a0da.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Users\\d7a36a25-8852-4c96-8701-f5fb39f7a0da.jpg"
-    },
-    {
       "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\default.webp",
       "SourceId": "webshop",
       "SourceType": "Discovered",
@@ -319,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Users\\default.webp"
+    },
+    {
+      "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\f4aacf1f-5c3c-40a2-8fe2-a85c81bad9f1.jpg",
+      "SourceId": "webshop",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\",
+      "BasePath": "_content/webshop",
+      "RelativePath": "images/Users/f4aacf1f-5c3c-40a2-8fe2-a85c81bad9f1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Users\\f4aacf1f-5c3c-40a2-8fe2-a85c81bad9f1.jpg"
     },
     {
       "Identity": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\js\\site.js",

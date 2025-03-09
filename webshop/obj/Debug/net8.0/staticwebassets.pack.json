@@ -53,12 +53,12 @@
       "PackagePath": "staticwebassets\\images\\Products\\d599bc5d-6603-4a02-bfbe-6eaf5f9a1702.jpg"
     },
     {
-      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\d7a36a25-8852-4c96-8701-f5fb39f7a0da.jpg",
-      "PackagePath": "staticwebassets\\images\\Users\\d7a36a25-8852-4c96-8701-f5fb39f7a0da.jpg"
-    },
-    {
       "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\default.webp",
       "PackagePath": "staticwebassets\\images\\Users\\default.webp"
+    },
+    {
+      "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\images\\Users\\f4aacf1f-5c3c-40a2-8fe2-a85c81bad9f1.jpg",
+      "PackagePath": "staticwebassets\\images\\Users\\f4aacf1f-5c3c-40a2-8fe2-a85c81bad9f1.jpg"
     },
     {
       "Id": "D:\\!Колледж\\C#\\webshop\\webshop\\webshop\\wwwroot\\js\\site.js",

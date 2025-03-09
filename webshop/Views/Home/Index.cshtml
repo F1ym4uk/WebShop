@@ -1,49 +1,75 @@
 ﻿@model IEnumerable<webshop.Models.Product>
 
+@{
+    ViewData["Title"] = "Главная";
+}
+
+
 <h1>Каталог</h1>
 
-<div class="row">
+<div class="row" style="z-index: 0;">
     <div class="col-md-3">
-        <form method="get" asp-controller="Home" asp-action="Index" class="sticky-top bg-light p-3">
-            <h5>Фильтры</h5>
+        <form method="get" asp-controller="Home" asp-action="Index" class="filter-form sticky-top p-3 rounded shadow-sm bg-body">
+            <h5 class="filter-title text-body">Фильтры</h5>
 
             <div class="dropdown mb-3 position-relative">
-                <input type="text" name="name" id="nameInput" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" autocomplete="off" />
-                <button type="button" class="clear-btn" onclick="document.getElementById('nameInput').value = '';">&times;</button>
+                <input type="text" name="name" id="nameInput" class="form-control bg-body text-body" 
+                       placeholder="Найти товар" value="@ViewBag.SelectedName" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('nameInput').value = '';">
+                &times;
+            </button>
                 <div class="dropdown-menu w-100" id="nameDropdown">
                     <div class="dropdown-content">
                         @foreach (var name in ViewBag.Names)
                         {
-                            <button type="button" class="dropdown-item">@name</button>
+                            <button type="button" class="dropdown-item" onclick="setFilterValue('nameInput', '@name')">@name</button>
                         }
                     </div>
                 </div>
             </div>
 
             <div class="dropdown mb-3 position-relative">
-                <input type="text" name="category" id="categoryInput" class="form-control" placeholder="Категория" value="@ViewBag.SelectedCategory" autocomplete="off" />
-                <button type="button" class="clear-btn" onclick="document.getElementById('categoryInput').value = '';">&times;</button>
+                <input type="text" name="category" id="categoryInput" class="form-control bg-body text-body" 
+                       placeholder="Категория" value="@ViewBag.SelectedCategory" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('categoryInput').value = '';">
+                &times;
+            </button>
+
                 <div class="dropdown-menu w-100" id="categoryDropdown">
                     <div class="dropdown-content">
                         @foreach (var cat in ViewBag.Categories)
                         {
-                            <button type="button" class="dropdown-item">@cat</button>
+                            <button type="button" class="dropdown-item" onclick="setFilterValue('categoryInput', '@cat')">@cat</button>
                         }
                     </div>
                 </div>
             </div>
 
             <div class="price-filter mb-3 position-relative">
-                <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Минимальная цена" value="@ViewBag.MinPrice" autocomplete="off" />
-                <button type="button" class="clear-btn" onclick="document.getElementById('minPrice').value = '';">&times;</button>
+                <input type="number" id="minPrice" name="minPrice" class="form-control bg-body text-body" 
+                       placeholder="Минимальная цена" value="@ViewBag.MinPrice" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('minPrice').value = '';">
+                &times;
+            </button>
             </div>
+
             <div class="price-filter mb-3 position-relative">
-                <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Максимальная цена" value="@ViewBag.MaxPrice" autocomplete="off" />
-                <button type="button" class="clear-btn" onclick="document.getElementById('maxPrice').value = '';">&times;</button>
+                <input type="number" id="maxPrice" name="maxPrice" class="form-control bg-body text-body" 
+                       placeholder="Максимальная цена" value="@ViewBag.MaxPrice" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('maxPrice').value = '';">
+                &times;
+            </button>
             </div>
-            <button type="submit" class="btn btn-primary">Фильтр</button>
+
+            <button type="submit" class="btn btn-primary w-100">Применить фильтр</button>
         </form>
     </div>
+
+
 
     <div class="col-md-9">
         <div id="product-list" class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;"></div>

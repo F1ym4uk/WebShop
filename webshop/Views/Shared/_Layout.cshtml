@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] </title>
+    <title>@ViewData["Title"]</title>
     <link rel="icon" type="image/x-icon" href="~/logo.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -12,85 +12,206 @@
 </head>
 
 <body>
-    
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center mb-3 mb-md-0 link-body-emphasis text-decoration-none">
-                    <svg width="50" height="50" viewBox="0 0 50 50"><path points="30,15 70,50 45,55 55,80 35,70 30,15" fill="#FF5722" d="M15 7.5L35 25L22.5 27.5L27.5 40L17.5 35L15 7.5Z" /><path x="10" y="10" width="8" height="8" fill="#FF5722" d="M5 5H9V9H5V5z" /><path x="82" y="82" width="8" height="8" fill="#FF5722" d="M41 41H45V45H41V41z" /></svg>
-                    <span style="margin-left: 3%; font-size: 24px; color: black;">WebShop</span>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="sun-fill" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a.5.5 0 0 1 .5.5V2a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 8 0zM3.343 2.343a.5.5 0 0 1 .707 0L5.121 3.414a.5.5 0 1 1-.707.707L3.343 3.05a.5.5 0 0 1 0-.707zm9.314 0a.5.5 0 0 1 0 .707l-1.07 1.07a.5.5 0 1 1-.707-.707l1.07-1.07a.5.5 0 0 1 .707 0zM8 3a5 5 0 1 1 0 10A5 5 0 0 1 8 3zM1.5 8a.5.5 0 0 1 .5-.5h1.5a.5.5 0 1 1 0 1H2a.5.5 0 0 1-.5-.5zM12 8a.5.5 0 0 1 .5-.5h1.5a.5.5 0 1 1 0 1H12.5a.5.5 0 0 1-.5-.5zM3.343 12.657a.5.5 0 0 1 0-.707l1.07-1.07a.5.5 0 1 1 .707.707l-1.07 1.07a.5.5 0 0 1-.707 0zm9.314 0a.5.5 0 0 1-.707 0l-1.07-1.07a.5.5 0 1 1 .707-.707l1.07 1.07a.5.5 0 0 1 0 .707zM8 13.5a.5.5 0 0 1 .5.5v1.5a.5.5 0 0 1-1 0V14a.5.5 0 0 1 .5-.5z" />
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6 .278a7.5 7.5 0 0 0 8.717 10.92 6 6 0 1 1-8.717-10.92z" />
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 1a7 7 0 1 1 0 14V1z" />
+        </symbol>
+        <symbol id="check2" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M13.485 1.929a.5.5 0 0 1 0 .707l-7.07 7.071a.5.5 0 0 1-.708 0l-3.536-3.536a.5.5 0 1 1 .708-.708l3.182 3.182 6.716-6.717a.5.5 0 0 1 .707 0z" />
+        </symbol>
+    </svg>
+
+    <div class="position-fixed bottom-0 start-0 mb-3 me-3 bd-mode-toggle pc-change-theme">
+        <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" aria-label="Toggle theme">
+            <svg class="bi my-1 theme-icon-active" width="2em" height="2em">
+                <use href="#sun-fill"></use>
+            </svg>
+        </button>
+    </div>  
+
+    <header class="p-3 mb-3 border-bottom" style="z-index: 1020;">
+        <div class="container position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+                <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <svg width="20" height="20" viewBox="0 0 30 30" fill="currentColor">
+                        <rect width="30" height="4"></rect>
+                        <rect y="12" width="30" height="4"></rect>
+                        <rect y="24" width="30" height="4"></rect>
+                    </svg>
+                </button>
+
+                <a asp-controller="Home" asp-action="Index" class="logo-center d-flex align-items-center mb-3 mb-md-0 link-body-emphasis text-decoration-none">
+                    <svg width="50" height="50" viewBox="0 0 50 50">
+                        <path points="30,15 70,50 45,55 55,80 35,70 30,15" fill="#FF5722" d="M15 7.5L35 25L22.5 27.5L27.5 40L17.5 35L15 7.5Z" />
+                        <path x="10" y="10" width="8" height="8" fill="#FF5722" d="M5 5H9V9H5V5z" />
+                        <path x="82" y="82" width="8" height="8" fill="#FF5722" d="M41 41H45V45H41V41z" />
+                    </svg>
+                    <span class="dynamic-text" style="margin-left: 3%; font-size: 24px;">WebShop</span>
                 </a>
 
-                <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: auto;">
-                    <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="AboutAs">О нас</a></li>
-                </ul>
-
-
-                @if (User?.Identity?.IsAuthenticated ?? false)
-                {
-                    <div class="dropdown text-end">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="40" height="40" class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu text-small">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Profile">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-2" viewBox="0 0 16 16">
-                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        <path d="M14 14s-1-4-6-4-6 4-6 4 1 1 6 1 6-1 6-1z" />
-                                    </svg>
-                                    Личный кабинет
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" asp-controller="Cart" asp-action="Index">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart me-2" viewBox="0 0 16 16">
-                                        <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 6A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.49-.402L1.61 2H.5a.5.5 0 0 1-.5-.5zm4 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                    </svg>
-                                    Корзина
-                                </a>
-                            </li>
-                            @if (User.HasClaim("IsAdmin", "True"))
-                            {
-                                <li><hr class="dropdown-divider"></li>
+                <!-- show on ≥992px height -->
+                <div class="d-none d-lg-flex align-items-center">
+                    <a class="btn d-flex align-items-center" style="font-size: 18px;" asp-controller="Home" asp-action="Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door me-2" viewBox="0 0 16 16">
+                            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6.5 6.5a.5.5 0 1 0 .708.708L8 2.207l6.146 6.147a.5.5 0 0 0 .708-.708l-6.5-6.5z" />
+                            <path d="M13 7.5V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7.5H1V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.5z" />
+                        </svg>
+                        <span>Главная</span>
+                    </a>
+                    <a class="btn d-flex align-items-center me-3" style="font-size: 18px;" asp-controller="Home" asp-action="AboutUs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle me-2" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0z" />
+                            <path d="m8.93 6.588-.82.41c-.162.08-.326.218-.326.465h-.002V8c0 .276.224.5.5.5s.5-.224.5-.5v-.4c0-.201.122-.385.32-.464l.78-.39a.5.5 0 0 0-.44-.898zM8 4.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1z" />
+                        </svg>
+                        О нас
+                    </a>
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="50" height="50" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Admin">
-                                        <svg width="16px" height="16px" viewBox="0 0 0.32 0.32" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill="#000000" fill-rule="evenodd" d="M0.201 0.2 0.117 0.283a0.057 0.057 0 1 1 -0.08 -0.08L0.12 0.119A0.09 0.09 0 0 1 0.248 0.029L0.205 0.071a0.03 0.03 0 1 0 0.043 0.043L0.291 0.071a0.1 0.1 0 0 1 0.009 0.048 0.09 0.09 0 0 1 -0.099 0.081M0.185 0.158 0.088 0.255A0.017 0.017 0 0 1 0.065 0.232L0.162 0.134z" />
-                                            </svg>
-                                        Панель Администратора
+                                    <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Profile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-2" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            <path d="M14 14s-1-4-6-4-6 4-6 4 1 1 6 1 6-1 6-1z" />
+                                        </svg>
+                                        Личный кабинет
                                     </a>
                                 </li>
-                            }
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item m-0 p-0" onsubmit="return logoutAndReload()">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="dropdown-item d-flex align-items-center">
-                                        <svg width="16px" height="16px" viewBox="0 0 0.3 0.3" fill="none" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.02 0.02h0.14v0.02H0.04v0.22h0.12v0.02H0.02zm0.197 0.063 0.067 0.067 -0.067 0.072 -0.015 -0.014L0.247 0.16H0.08V0.14h0.166l-0.043 -0.043z" fill="#000000" />
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" asp-controller="Cart" asp-action="Index">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart me-2" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 6A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.49-.402L1.61 2H.5a.5.5 0 0 1-.5-.5zm4 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                        </svg>
+                                        Корзина
+                                    </a>
+                                </li>
+                                @if (User.HasClaim("IsAdmin", "True"))
+                                {
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center" asp-controller="Account" asp-action="Admin">
+                                            <svg width="16px" height="16px" viewBox="0 0 0.32 0.32" fill="currentColor" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.201 0.2 0.117 0.283a0.057 0.057 0 1 1 -0.08 -0.08L0.12 0.119A0.09 0.09 0 0 1 0.248 0.029L0.205 0.071a0.03 0.03 0 1 0 0.043 0.043L0.291 0.071a0.1 0.1 0 0 1 0.009 0.048 0.09 0.09 0 0 1 -0.099 0.081" />
                                             </svg>
-                                        Выйти
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-
-                }
-                else
-                {
-                    <div class="text-end">
-                        <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Login">Войти</a>
-                        <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Регистрация</a>
-                    </div>
-                }
+                                            Панель Администратора
+                                        </a>
+                                    </li>
+                                }
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item m-0 p-0" onsubmit="return logoutAndReload()">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="dropdown-item d-flex align-items-center">
+                                            <svg width="16px" height="16px" viewBox="0 0 0.3 0.3" fill="currentColor" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.02 0.02h0.14v0.02H0.04v0.22h0.12v0.02H0.02zm0.197 0.063 0.067 0.067 -0.067 0.072 -0.015 -0.014L0.247 0.16H0.08V0.14h0.166l-0.043 -0.043z" />
+                                            </svg>
+                                            Выйти
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-end">
+                            <a class="btn custom-btn-outline me-2" asp-controller="Account" asp-action="Login">Войти</a>
+                            <a class="btn custom-btn-primary" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </header>
 
-    
+
+    <!-- show on <992px height (burger-menu) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Меню</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="d-grid gap-2">
+                <a class="btn btn-outline-primary d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door me-2" viewBox="0 0 16 16">
+                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6.5 6.5a.5.5 0 1 0 .708.708L8 2.207l6.146 6.147a.5.5 0 0 0 .708-.708l-6.5-6.5z" />
+                        <path d="M13 7.5V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7.5H1V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.5z" />
+                    </svg>
+                    Главная
+                </a>
+                <a class="btn btn-outline-secondary d-flex align-items-center" asp-controller="Home" asp-action="AboutUs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle me-2" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0z" />
+                        <path d="m8.93 6.588-.82.41c-.162.08-.326.218-.326.465h-.002V8c0 .276.224.5.5.5s.5-.224.5-.5v-.4c0-.201.122-.385.32-.464l.78-.39a.5.5 0 0 0-.44-.898zM8 4.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1z" />
+                    </svg>
+                    О нас
+                </a>
+            </div>
+            <hr>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <div class="d-grid gap-2">
+                    <a class="btn d-flex text-dark align-items-center" asp-controller="Account" asp-action="Profile">
+                        <img src="~/images/users/@User.FindFirst("Image")?.Value" alt="Profile" width="45" height="45" class="rounded-circle me-2">
+                        <span class="dynamic-text" style="font-size: 16px;">Личный кабинет</span>
+                    </a>
+                    <a class="btn btn-outline-success d-flex align-items-center" asp-controller="Cart" asp-action="Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart me-2" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 6A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.49-.402L1.61 2H.5a.5.5 0 0 1-.5-.5zm4 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                        Корзина
+                    </a>
+                    <!--
+                    @if (User.HasClaim("IsAdmin", "True"))
+                    {
+                        <a class="btn btn-outline-warning d-flex align-items-center" asp-controller="Account" asp-action="Admin">
+                            <svg width="16px" height="16px" viewBox="0 0 0.32 0.32" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#000000" fill-rule="evenodd" d="M0.201 0.2 0.117 0.283a0.057 0.057 0 1 1 -0.08 -0.08L0.12 0.119A0.09 0.09 0 0 1 0.248 0.029L0.205 0.071a0.03 0.03 0 1 0 0.043 0.043L0.291 0.071a0.1 0.1 0 0 1 0.009 0.048 0.09 0.09 0 0 1 -0.099 0.081" />
+                            </svg>
+                            Панель администратора
+                        </a>
+                    }
+                    -->
+                    <form asp-controller="Account" asp-action="Logout" method="post" onsubmit="return logoutAndReload()">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-danger d-flex align-items-center">
+                            <svg width="16px" height="16px" viewBox="0 0 0.3 0.3" fill="none" class="bi bi-gear me-2" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.02 0.02h0.14v0.02H0.04v0.22h0.12v0.02H0.02zm0.197 0.063 0.067 0.067 -0.067 0.072 -0.015 -0.014L0.247 0.16H0.08V0.14h0.166l-0.043 -0.043z" fill="#000000" />
+                            </svg>
+                            Выйти
+                        </button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="d-grid gap-2">
+                    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Войти</a>
+                    <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Регистрация</a>
+                </div>
+            }
+
+            <div class="position-fixed bottom-0 start-0 mb-3 me-3 bd-mode-toggle">
+                <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme-mobil" type="button" aria-expanded="false" aria-label="Toggle theme">
+                    <svg class="bi my-1 theme-icon-active" width="2em" height="2em">
+                        <use href="#sun-fill"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container">
 
@@ -99,67 +220,35 @@
                 @RenderBody()
             </main>
         </div>
-
-    </div>
-
-    <div class="container">
-
-
+            
         <footer class="py-5">
             <div class="row">
-                <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link p-0 text-body-secondary">Главная</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-6 col-md-2 mb-3">
-                    <h5>Section</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-5 offset-md-1 mb-3">
-                    <form>
-                        <h5>Subscribe to our newsletter</h5>
-                        <p>Monthly digest of what's new and exciting from us.</p>
-                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label for="newsletter1" class="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                            <button class="btn btn-primary" type="button">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
+                <ul class="nav justify-content-center pb-3">
+                    <li class="nav-item"><a class="nav-link px-2 text-body-secondary" asp-controller="Home" asp-action="Index">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link px-2 text-body-secondary" asp-controller="Home" asp-action="AboutUs">О нас</a></li>
+                </ul>
             </div>
 
-            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 border-top">
                 <p>© 2025 WebShop. Все права защищены</p>
                 <ul class="list-unstyled d-flex">
-                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-                    <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="https://t.me/TheFulum" target="_blank">
+                            <svg width="24px" height="24px" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m0.435 0.045 -0.42 0.15 0.12 0.06 0.18 -0.12 -0.12 0.15 0.18 0.12z" fill="currentColor" stroke-linejoin="round" stroke-width="0.03" /></svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="https://www.instagram.com/thefulum/profilecard/?igsh=aDA0dnBiZDl0cnJ5" target="_blank">
+                            <svg fill="currentColor" width="24px" height="24px" viewBox="0 0 0.72 0.72" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M0.52 0.164a0.036 0.036 0 1 0 0.036 0.036 0.036 0.036 0 0 0 -0.036 -0.036m0.138 0.073a0.228 0.228 0 0 0 -0.014 -0.073 0.147 0.147 0 0 0 -0.035 -0.053 0.141 0.141 0 0 0 -0.053 -0.034 0.219 0.219 0 0 0 -0.073 -0.014C0.452 0.06 0.442 0.06 0.36 0.06s-0.092 0 -0.124 0.002a0.219 0.219 0 0 0 -0.073 0.014 0.144 0.144 0 0 0 -0.053 0.034 0.141 0.141 0 0 0 -0.034 0.053 0.219 0.219 0 0 0 -0.014 0.073C0.06 0.268 0.06 0.278 0.06 0.36s0 0.092 0.002 0.124a0.219 0.219 0 0 0 0.014 0.073 0.141 0.141 0 0 0 0.034 0.053 0.144 0.144 0 0 0 0.053 0.034 0.219 0.219 0 0 0 0.073 0.014C0.268 0.66 0.278 0.66 0.36 0.66s0.092 0 0.124 -0.002a0.219 0.219 0 0 0 0.073 -0.014 0.141 0.141 0 0 0 0.053 -0.034 0.145 0.145 0 0 0 0.035 -0.053 0.228 0.228 0 0 0 0.014 -0.073c0 -0.032 0.002 -0.042 0.002 -0.124s0 -0.092 -0.002 -0.124M0.604 0.48a0.168 0.168 0 0 1 -0.01 0.056 0.092 0.092 0 0 1 -0.022 0.034 0.096 0.096 0 0 1 -0.034 0.022 0.168 0.168 0 0 1 -0.056 0.01c-0.03 0.002 -0.041 0.002 -0.12 0.002s-0.09 0 -0.12 -0.002a0.171 0.171 0 0 1 -0.058 -0.009 0.099 0.099 0 0 1 -0.033 -0.022 0.09 0.09 0 0 1 -0.022 -0.034 0.165 0.165 0 0 1 -0.012 -0.057c0 -0.03 -0.002 -0.041 -0.002 -0.12s0 -0.09 0.002 -0.12a0.165 0.165 0 0 1 0.01 -0.057A0.09 0.09 0 0 1 0.15 0.15a0.093 0.093 0 0 1 0.033 -0.024A0.171 0.171 0 0 1 0.24 0.116c0.03 0 0.041 -0.002 0.12 -0.002s0.09 0 0.12 0.002a0.168 0.168 0 0 1 0.056 0.01 0.092 0.092 0 0 1 0.036 0.024 0.093 0.093 0 0 1 0.022 0.033 0.168 0.168 0 0 1 0.01 0.057c0.002 0.03 0.002 0.041 0.002 0.12s0 0.09 -0.002 0.12M0.36 0.206A0.154 0.154 0 1 0 0.514 0.36 0.154 0.154 0 0 0 0.36 0.206m0 0.254A0.1 0.1 0 1 1 0.46 0.36 0.1 0.1 0 0 1 0.36 0.46" /></svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" href="https://discord.com/users/588985463256252426" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-discord" viewBox="0 0 24 24"><path d="M20.317 4.361a19.8 19.8 0 0 0 -4.886 -1.516 0.075 0.075 0 0 0 -0.078 0.038c-0.211 0.375 -0.446 0.865 -0.609 1.249a18.3 18.3 0 0 0 -5.487 0 12 12 0 0 0 -0.618 -1.249 0.075 0.075 0 0 0 -0.078 -0.038c-1.688 0.291 -3.33 0.801 -4.886 1.516a0.06 0.06 0 0 0 -0.032 0.027C0.534 9.036 -0.32 13.571 0.099 18.048q0.005 0.033 0.032 0.055a19.95 19.95 0 0 0 5.992 3.03 0.075 0.075 0 0 0 0.084 -0.028q0.695 -0.945 1.227 -1.994a0.075 0.075 0 0 0 -0.015 -0.088l-0.027 -0.017a13.5 13.5 0 0 1 -1.872 -0.892 0.075 0.075 0 0 1 -0.03 -0.099l0.022 -0.028q0.191 -0.143 0.372 -0.292a0.075 0.075 0 0 1 0.076 -0.011c3.929 1.794 8.181 1.794 12.062 0a0.075 0.075 0 0 1 0.08 0.011q0.181 0.15 0.372 0.292a0.075 0.075 0 0 1 -0.006 0.128 12 12 0 0 1 -1.874 0.891 0.075 0.075 0 0 0 -0.045 0.045 0.075 0.075 0 0 0 0.005 0.061c0.36 0.698 0.772 1.364 1.225 1.994a0.075 0.075 0 0 0 0.084 0.028 19.8 19.8 0 0 0 6.002 -3.03 0.075 0.075 0 0 0 0.032 -0.055c0.501 -5.176 -0.839 -9.674 -3.549 -13.659a0.045 0.045 0 0 0 -0.03 -0.028m-12.297 10.96c-1.183 0 -2.157 -1.086 -2.157 -2.418s0.956 -2.42 2.157 -2.42c1.211 0 2.175 1.095 2.157 2.42 0 1.332 -0.956 2.418 -2.157 2.418m7.974 0c-1.182 0 -2.157 -1.086 -2.157 -2.418s0.956 -2.42 2.157 -2.42c1.211 0 2.176 1.095 2.157 2.42 0 1.332 -0.947 2.418 -2.157 2.418" /></svg>
+                        </a>
+                    </li>
                 </ul>
+
             </div>
         </footer>
     </div>
@@ -167,6 +256,52 @@
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <svg fill="#000000" width="40px" height="40px" viewBox="-0.25 -0.225 1.2 1.2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-arrow-up"><path d="M0.301 0.205 0.103 0.401A0.049 0.049 0 0 1 0.032 0.33L0.314 0.048a0.049 0.049 0 0 1 0.071 0l0.282 0.282a0.049 0.049 0 0 1 -0.071 0.071L0.4 0.205v0.479a0.049 0.049 0 1 1 -0.101 0z" /></svg>
     </button>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleButton = document.getElementById('bd-theme');
+            const themeToggleButton2 = document.getElementById('bd-theme-mobil');
+            const themeValue = localStorage.getItem('theme') || 'light';
+
+            document.documentElement.setAttribute('data-bs-theme', themeValue);
+
+            const updateThemeIcon = (theme) => {
+                const icon = theme === 'dark' ? '#moon-stars-fill' : '#sun-fill';
+
+                document.querySelector('#bd-theme svg use').setAttribute('href', icon);
+                if (themeToggleButton2) {
+                    document.querySelector('#bd-theme-mobil svg use').setAttribute('href', icon);
+                }
+            };
+
+            updateThemeIcon(themeValue);
+
+            function toggleTheme() {
+                let newTheme = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+
+            themeToggleButton.addEventListener('click', toggleTheme);
+            if (themeToggleButton2) {
+                themeToggleButton2.addEventListener('click', toggleTheme);
+            }
+
+            document.querySelectorAll('[data-bs-theme-value]').forEach(button => {
+                button.addEventListener('click', function () {
+                    let theme = this.getAttribute('data-bs-theme-value');
+                    document.documentElement.setAttribute('data-bs-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    updateThemeIcon(theme);
+                });
+            });
+        });
+
+    </script>
+
+
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js"></script>

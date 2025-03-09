@@ -10,50 +10,51 @@
 {
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
 }
-
 <div class="p-4">
-    <div class="row align-items-stretch">
-        <div class="col-md-3 d-flex flex-column align-items-center">
-            <div class="position-relative w-100 h-100">
-                <input type="file" name="imageFile" id="imageFile" class="d-none" accept="image/*" onchange="previewImage(event)" />
-                <label for="imageFile" class="w-100 h-100 cursor-pointer">
-                    <div class="image-container position-relative w-100 h-100">
-                        <img id="profileImage"
-                             src="@(string.IsNullOrEmpty(Model.Image) ? "/images/Users/default.webp" : $"/images/Users/{Model.Image}")"
-                             alt="User Image"
-                             class="border w-100 h-100"
-                             style="object-fit: cover;" />
-                        <div class="overlay d-flex justify-content-center align-items-center text-white">
-                            <span>Изменить фото</span>
+    <form asp-controller="Account" asp-action="Profile" method="post" enctype="multipart/form-data" class="w-100">
+        <div class="row align-items-stretch">
+            <div class="col-md-3 d-flex flex-column align-items-center">
+                <div class="position-relative w-100 h-100">
+                    <input type="file" name="imageFile" id="imageFile" class="d-none" accept="image/*" onchange="previewImage(event)" />
+                    <label for="imageFile" class="w-100 h-100 cursor-pointer">
+                        <div class="image-container position-relative w-100 h-100">
+                            <img id="profileImage"
+                                 src="@(string.IsNullOrEmpty(Model.Image) ? "/images/Users/default.webp" : $"/images/Users/{Model.Image}")"
+                                 alt="User Image"
+                                 class="border w-100 h-100"
+                                 style="object-fit: cover;" />
+                            <div class="overlay d-flex justify-content-center align-items-center text-white">
+                                <span>Изменить фото</span>
+                            </div>
                         </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-9 d-flex align-items-center">
+                <div class="w-100">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" type="text" class="form-control" id="floatingName" placeholder="Имя" />
+                        <label for="floatingName">Имя</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                </label>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="PhoneNumber" type="tel" class="form-control" id="PhoneNumber" placeholder="Телефон" />
+                        <label for="floatingPhone">Телефон</label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" id="floatingEmail" readonly placeholder="Email" />
+                        <label for="floatingEmail">Email</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-9 d-flex align-items-center">
-            <form asp-controller="Account" asp-action="Profile" method="post" enctype="multipart/form-data" class="w-100">
-                <div class="form-floating mb-3">
-                    <input asp-for="Name" type="text" class="form-control" id="floatingName" placeholder="Имя" />
-                    <label for="floatingName">Имя</label>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input asp-for="PhoneNumber" type="tel" class="form-control" id="floatingPhone" placeholder="Телефон" />
-                    <label for="floatingPhone">Телефон</label>
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" id="floatingEmail" readonly placeholder="Email" />
-                    <label for="floatingEmail">Email</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
-            </form>
-        </div>
-    </div>
+    </form>
 </div>
 
 @section Scripts {

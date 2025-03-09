@@ -10,13 +10,14 @@
     <a class="btn btn-outline-primary me-2" href="https://mail.google.com">Перейти на почту</a>
 }
 
-<div class="login__block d-flex justify-content-center align-items-center flex-wrap m-5">
-
-
+<div class="login__block d-flex justify-content-center align-items-center flex-wrap">
     <form asp-action="Register" method="post" enctype="multipart/form-data" class="form_container">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="logo_container">
-            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-person me-2" viewBox="0 0 80 80"><path d="M40 40a15 15 0 1 0 0 -30A15 15 0 0 0 40 40" /><path d="M70 70s-5 -20 -30 -20 -30 20 -30 20 5 5 30 5 30 -5 30 -5" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-person me-2" viewBox="0 0 80 80">
+                <path d="M40 40a15 15 0 1 0 0 -30A15 15 0 0 0 40 40" />
+                <path d="M70 70s-5 -20 -30 -20 -30 20 -30 20 5 5 30 5 30 -5 30 -5" />
+            </svg>
         </div>
         <div class="title_container">
             <p class="title">Зарегестрируйте свой аккаунт</p>
@@ -26,7 +27,10 @@
 
         <div class="input_container form-group">
             <label class="input_label" for="email_field">Name</label>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="icon" viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0 -9 4.5 4.5 0 0 0 0 9" /><path d="M21 21s-1.5 -6 -9 -6 -9 6 -9 6 1.5 1.5 9 1.5 9 -1.5 9 -1.5" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="icon" viewBox="0 0 24 24">
+                <path d="M12 12a4.5 4.5 0 1 0 0 -9 4.5 4.5 0 0 0 0 9" />
+                <path d="M21 21s-1.5 -6 -9 -6 -9 6 -9 6 1.5 1.5 9 1.5 9 -1.5 9 -1.5" />
+            </svg>
             <input asp-for="Name" placeholder="Ваше имя" class="input_field" id="name_field" autocomplete="off" />
         </div>
         <div class="text-start w-100" style="margin: -10px 0px -10px 0px;">
@@ -72,14 +76,11 @@
 
         <div class="input_container form-group">
             <label class="input_label" for="email_field">Image</label>
-            <input asp-for="Image" type="file" class="form-control" class="input_field"  />
+            <input asp-for="Image" type="file" class="form-control"  />
         </div>
 
-        <div class="text-start w-100 d-flex justify-content-end" style="margin: -10px 10px 10px 10px;">
-            <a asp-action="ForgotPassword" class="note">Забыли пароль?</a>
-        </div>
-            <button title="Зарегистрироваться" type="submit" class="sign-in_btn">
-                <span>Зарегистрироваться</span>
+        <button title="Зарегистрироваться" type="submit" class="sign-in_btn">
+            <span>Зарегистрироваться</span>
         </button>
 
         <div class="separator">
@@ -91,7 +92,4 @@
             Войти
         </button>
     </form>
-
-
-
 </div>

@@ -113,7 +113,7 @@ namespace webshop.Controllers
 
         //Get [About As]
         [HttpGet]
-        public IActionResult AboutAs()
+        public IActionResult AboutUs()
         {
             return View();
         }

@@ -10,44 +10,45 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="Name" class="control-label">Название</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <input asp-for="Description" class="form-control">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Category" class="control-label"></label>
+        <label asp-for="Category" class="control-label">Категория</label>
         <input asp-for="Category" class="form-control">
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
+        <label asp-for="Price" class="control-label">Цена</label>
         <input asp-for="Price" type="number" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="StockQuantity" class="control-label"></label>
+        <label asp-for="StockQuantity" class="control-label">Количество на складе</label>
         <input asp-for="StockQuantity" type="number" class="form-control" id="stockQuantityInput" />
         <span id="customError" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Image" for="imageFile" class="control-label">Image</label>
+        <label asp-for="Image" for="imageFile" class="control-label">Картинка</label>
         <input asp-for="Image" type="file" name="imageFile" id="imageFile" class="form-control" />
     </div>
 
+    <br />
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a asp-action="Admin" class="btn btn-secondary">Cancel</a>
+    <div class="form-group text-end">
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a asp-action="Admin" class="btn btn-secondary">Вернуться назад</a>
     </div>
 </form>
 

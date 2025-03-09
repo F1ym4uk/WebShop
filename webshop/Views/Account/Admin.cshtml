@@ -12,44 +12,53 @@
     <a asp-area="" asp-controller="Account" asp-action="AdminUsers" class="btn btn-success mb-3">Пользователи</a>
     <a asp-area="" asp-controller="Account" asp-action="AddProduct" class="btn btn-success mb-3" style="margin-left: 1%;">Добавить товар</a>
 </div>
-
 <div class="col-md-12">
-    <form method="get" class="sticky-top bg-light p-3">
+    <form method="get" class="sticky-top p-3 border rounded shadow-sm bg-body">
         <div class="dropdown mb-3 position-relative">
-            <input type="text" name="name" id="nameInput" class="form-control" placeholder="Найти товар" value="@ViewBag.SelectedName" autocomplete="off" />
-            <button type="button" class="clear-btn" onclick="document.getElementById('nameInput').value = '';">&times;</button>
+            <input type="text" name="name" id="nameInput" class="form-control bg-body"
+                   placeholder="Найти товар" value="@ViewBag.SelectedName" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('nameInput').value = '';">
+                &times;
+            </button>
             <div class="dropdown-menu w-100" id="nameDropdown">
                 <div class="dropdown-content">
                     @foreach (var name in ViewBag.Names)
                     {
-                        <button type="button" class="dropdown-item">@name</button>
+                        <button type="button" class="dropdown-item" onclick="setFilterValue('nameInput', '@name')">@name</button>
                     }
                 </div>
             </div>
         </div>
 
         <div class="dropdown mb-3 position-relative">
-            <input type="text" name="category" id="categoryInput" class="form-control" placeholder="Категория" value="@ViewBag.SelectedCategory" autocomplete="off" />
-            <button type="button" class="clear-btn" onclick="document.getElementById('categoryInput').value = '';">&times;</button>
+            <input type="text" name="category" id="categoryInput" class="form-control bg-body"
+                   placeholder="Категория" value="@ViewBag.SelectedCategory" autocomplete="off" />
+            <button type="button" class="clear-btn position-absolute top-50 end-0 translate-middle-y me-2"
+                    onclick="document.getElementById('categoryInput').value = '';">
+                &times;
+            </button>
             <div class="dropdown-menu w-100" id="categoryDropdown">
                 <div class="dropdown-content">
                     @foreach (var cat in ViewBag.Categories)
                     {
-                        <button type="button" class="dropdown-item">@cat</button>
+                        <button type="button" class="dropdown-item" onclick="setFilterValue('categoryInput', '@cat')">@cat</button>
                     }
                 </div>
             </div>
         </div>
 
-        <div class="price-filter mb-3">
-            <input type="number" name="minPrice" class="form-control" placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+        <div class="d-flex gap-2 mb-3">
+            <input type="number" name="minPrice" class="form-control bg-body"
+                   placeholder="Мин. цена" value="@ViewBag.MinPrice" autocomplete="off" />
+            <input type="number" name="maxPrice" class="form-control bg-body"
+                   placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
         </div>
-        <div class="price-filter mb-3">
-            <input type="number" name="maxPrice" class="form-control" placeholder="Макс. цена" value="@ViewBag.MaxPrice" autocomplete="off" />
-        </div>
-        <button type="submit" class="btn btn-primary">Фильтр</button>
+
+        <button type="submit" class="btn btn-primary w-100">Применить фильтр</button>
     </form>
 </div>
+
 
 <table class="table">
     <thead>
@@ -85,10 +94,10 @@
                 <td>@product.Category</td>
                 <td>@product.StockQuantity</td>
                 <td>
-                    <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
-                        <input type="hidden" name="id" value="@product.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm w-100">Удалить</button>
-                    </form>
+                    <button type="button" class="btn btn-danger btn-sm w-100" data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteModal" onclick="setDeleteId('@product.Id')">
+                        Удалить
+                    </button>
                     <form asp-action="EditProduct" method="get" class="mt-2">
                         <input type="hidden" name="id" value="@product.Id" />
                         <button type="submit" class="btn btn-danger btn-sm w-100">Изменить</button>
@@ -100,9 +109,38 @@
     </tbody>
 </table>
 
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить этот товар?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" asp-action="DeleteProduct" method="post">
+                    <input type="hidden" id="deleteProductId" name="id" />
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @functions {
     public string TruncateText(string text, int maxLength)
     {
         return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
     }
 }
+
+<script>
+    function setDeleteId(productId) {
+        document.getElementById('deleteProductId').value = productId;
+    }
+</script>
