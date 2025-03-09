@@ -587,4 +587,13 @@ input[type="number"] {
     border-radius: 0px 0px -15px -15px;
 }
 
+#block-icons {
+    width: 380px;
+}
 
+@media (max-width: 412px) {
+   #block-icons {
+        width: calc(100vw - 32px);
+    }
+}
+    

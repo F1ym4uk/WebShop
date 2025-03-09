@@ -46,7 +46,7 @@
                     </svg>
                 </button>
 
-                <a asp-controller="Home" asp-action="Index" class="logo-center d-flex align-items-center mb-3 mb-md-0 link-body-emphasis text-decoration-none">
+                <a asp-controller="Home" asp-action="Index" class="logo-center d-flex align-items-center mb-md-0 link-body-emphasis text-decoration-none">
                     <svg width="50" height="50" viewBox="0 0 50 50">
                         <path points="30,15 70,50 45,55 55,80 35,70 30,15" fill="#FF5722" d="M15 7.5L35 25L22.5 27.5L27.5 40L17.5 35L15 7.5Z" />
                         <path x="10" y="10" width="8" height="8" fill="#FF5722" d="M5 5H9V9H5V5z" />
@@ -202,13 +202,32 @@
                 </div>
             }
 
-            <div class="position-fixed bottom-0 start-0 mb-3 me-3 bd-mode-toggle">
+
+            <div class="position-fixed d-flex bottom-0 start-0 mb-3 justify-content-between bd-mode-toggle" id="block-icons">
                 <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme-mobil" type="button" aria-expanded="false" aria-label="Toggle theme">
                     <svg class="bi my-1 theme-icon-active" width="2em" height="2em">
                         <use href="#sun-fill"></use>
                     </svg>
                 </button>
+                <ul class="list-unstyled d-flex justify-content-center align-items-end">
+                    <li>
+                        <a class="link-body-emphasis" target="_blank">
+                            <svg width="24px" height="24px" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m0.435 0.045 -0.42 0.15 0.12 0.06 0.18 -0.12 -0.12 0.15 0.18 0.12z" fill="currentColor" stroke-linejoin="round" stroke-width="0.03" /></svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" target="_blank">
+                            <svg fill="currentColor" width="24px" height="24px" viewBox="0 0 0.72 0.72" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M0.52 0.164a0.036 0.036 0 1 0 0.036 0.036 0.036 0.036 0 0 0 -0.036 -0.036m0.138 0.073a0.228 0.228 0 0 0 -0.014 -0.073 0.147 0.147 0 0 0 -0.035 -0.053 0.141 0.141 0 0 0 -0.053 -0.034 0.219 0.219 0 0 0 -0.073 -0.014C0.452 0.06 0.442 0.06 0.36 0.06s-0.092 0 -0.124 0.002a0.219 0.219 0 0 0 -0.073 0.014 0.144 0.144 0 0 0 -0.053 0.034 0.141 0.141 0 0 0 -0.034 0.053 0.219 0.219 0 0 0 -0.014 0.073C0.06 0.268 0.06 0.278 0.06 0.36s0 0.092 0.002 0.124a0.219 0.219 0 0 0 0.014 0.073 0.141 0.141 0 0 0 0.034 0.053 0.144 0.144 0 0 0 0.053 0.034 0.219 0.219 0 0 0 0.073 0.014C0.268 0.66 0.278 0.66 0.36 0.66s0.092 0 0.124 -0.002a0.219 0.219 0 0 0 0.073 -0.014 0.141 0.141 0 0 0 0.053 -0.034 0.145 0.145 0 0 0 0.035 -0.053 0.228 0.228 0 0 0 0.014 -0.073c0 -0.032 0.002 -0.042 0.002 -0.124s0 -0.092 -0.002 -0.124M0.604 0.48a0.168 0.168 0 0 1 -0.01 0.056 0.092 0.092 0 0 1 -0.022 0.034 0.096 0.096 0 0 1 -0.034 0.022 0.168 0.168 0 0 1 -0.056 0.01c-0.03 0.002 -0.041 0.002 -0.12 0.002s-0.09 0 -0.12 -0.002a0.171 0.171 0 0 1 -0.058 -0.009 0.099 0.099 0 0 1 -0.033 -0.022 0.09 0.09 0 0 1 -0.022 -0.034 0.165 0.165 0 0 1 -0.012 -0.057c0 -0.03 -0.002 -0.041 -0.002 -0.12s0 -0.09 0.002 -0.12a0.165 0.165 0 0 1 0.01 -0.057A0.09 0.09 0 0 1 0.15 0.15a0.093 0.093 0 0 1 0.033 -0.024A0.171 0.171 0 0 1 0.24 0.116c0.03 0 0.041 -0.002 0.12 -0.002s0.09 0 0.12 0.002a0.168 0.168 0 0 1 0.056 0.01 0.092 0.092 0 0 1 0.036 0.024 0.093 0.093 0 0 1 0.022 0.033 0.168 0.168 0 0 1 0.01 0.057c0.002 0.03 0.002 0.041 0.002 0.12s0 0.09 -0.002 0.12M0.36 0.206A0.154 0.154 0 1 0 0.514 0.36 0.154 0.154 0 0 0 0.36 0.206m0 0.254A0.1 0.1 0 1 1 0.46 0.36 0.1 0.1 0 0 1 0.36 0.46" /></svg>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="link-body-emphasis" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-discord" viewBox="0 0 24 24"><path d="M20.317 4.361a19.8 19.8 0 0 0 -4.886 -1.516 0.075 0.075 0 0 0 -0.078 0.038c-0.211 0.375 -0.446 0.865 -0.609 1.249a18.3 18.3 0 0 0 -5.487 0 12 12 0 0 0 -0.618 -1.249 0.075 0.075 0 0 0 -0.078 -0.038c-1.688 0.291 -3.33 0.801 -4.886 1.516a0.06 0.06 0 0 0 -0.032 0.027C0.534 9.036 -0.32 13.571 0.099 18.048q0.005 0.033 0.032 0.055a19.95 19.95 0 0 0 5.992 3.03 0.075 0.075 0 0 0 0.084 -0.028q0.695 -0.945 1.227 -1.994a0.075 0.075 0 0 0 -0.015 -0.088l-0.027 -0.017a13.5 13.5 0 0 1 -1.872 -0.892 0.075 0.075 0 0 1 -0.03 -0.099l0.022 -0.028q0.191 -0.143 0.372 -0.292a0.075 0.075 0 0 1 0.076 -0.011c3.929 1.794 8.181 1.794 12.062 0a0.075 0.075 0 0 1 0.08 0.011q0.181 0.15 0.372 0.292a0.075 0.075 0 0 1 -0.006 0.128 12 12 0 0 1 -1.874 0.891 0.075 0.075 0 0 0 -0.045 0.045 0.075 0.075 0 0 0 0.005 0.061c0.36 0.698 0.772 1.364 1.225 1.994a0.075 0.075 0 0 0 0.084 0.028 19.8 19.8 0 0 0 6.002 -3.03 0.075 0.075 0 0 0 0.032 -0.055c0.501 -5.176 -0.839 -9.674 -3.549 -13.659a0.045 0.045 0 0 0 -0.03 -0.028m-12.297 10.96c-1.183 0 -2.157 -1.086 -2.157 -2.418s0.956 -2.42 2.157 -2.42c1.211 0 2.175 1.095 2.157 2.42 0 1.332 -0.956 2.418 -2.157 2.418m7.974 0c-1.182 0 -2.157 -1.086 -2.157 -2.418s0.956 -2.42 2.157 -2.42c1.211 0 2.176 1.095 2.157 2.42 0 1.332 -0.947 2.418 -2.157 2.418" /></svg>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
         </div>
     </div>
 
@@ -229,10 +248,10 @@
                 </ul>
             </div>
 
-            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 border-top">
-                <p>© 2025 WebShop. Все права защищены</p>
-                <ul class="list-unstyled d-flex">
-                    <li class="ms-3">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 border-top" style="text-align: center;">
+                <p>© 2025 WebShop. Все права защищены</p>   
+                <ul class="list-unstyled d-flex justify-content-center">
+                    <li>
                         <a class="link-body-emphasis" href="https://t.me/TheFulum" target="_blank">
                             <svg width="24px" height="24px" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m0.435 0.045 -0.42 0.15 0.12 0.06 0.18 -0.12 -0.12 0.15 0.18 0.12z" fill="currentColor" stroke-linejoin="round" stroke-width="0.03" /></svg>
                         </a>
