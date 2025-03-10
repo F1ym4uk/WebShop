@@ -24,7 +24,6 @@ input:-webkit-autofill:active {
 }
 
 
-
 html {
     font-size: 14px;
 }
@@ -34,6 +33,17 @@ html {
         font-size: 16px;
     }
 }
+
+
+body.no-scroll {
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
 
 .dynamic-text {
     color: var(--bs-body-color) !important;
@@ -587,8 +597,15 @@ input[type="number"] {
     border-radius: 0px 0px -15px -15px;
 }
 
+#block-icons-block {
+    height: calc(100vh - 400px);
+}
+
 #block-icons {
     width: 380px;
+    position: fixed;
+    bottom: 0;
+
 }
 
 @media (max-width: 412px) {
@@ -596,4 +613,20 @@ input[type="number"] {
         width: calc(100vw - 32px);
     }
 }
-    
+
+
+@media (max-height: 500px) {
+    #block-icons {
+        margin-bottom: 0 !important;
+    }
+
+    #hr-mobil-menu {
+        margin: 0;
+    }
+}
+
+@media (max-height: 450px) {
+    #block-icons-block {
+        display: none;
+    }
+}

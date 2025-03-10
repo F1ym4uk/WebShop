@@ -1,4 +1,14 @@
-﻿
+﻿const mobileMenu = document.querySelector('#mobileMenu'); 
+const body = document.querySelector('body');
+
+mobileMenu.addEventListener('show.bs.offcanvas', () => {
+    body.classList.add('no-scroll');
+});
+
+mobileMenu.addEventListener('hidden.bs.offcanvas', () => {
+    body.classList.remove('no-scroll');
+});
+
 
 
 window.addEventListener('scroll', function () {
