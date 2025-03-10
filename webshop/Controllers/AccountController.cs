@@ -506,6 +506,16 @@ namespace webshop.Controllers
             var user = _context.Users.Find(id);
             if (user != null)
             {
+                // Удаляем изображение пользователя, если оно не является дефолтным
+                if (!string.IsNullOrEmpty(user.Image) && user.Image != "default.webp")
+                {
+                    string imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images/Users", user.Image);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
                 _context.Users.Remove(user);
                 _context.SaveChanges();
             }
@@ -513,7 +523,6 @@ namespace webshop.Controllers
             ViewBag.Message = "Пользователь удалён";
             return RedirectToAction("AdminUsers");
         }
-
 
 
         // Get Add Product
@@ -577,7 +586,7 @@ namespace webshop.Controllers
             
             return View(product);
         }
-        
+
         // Del product
         [HttpPost]
         public IActionResult DeleteProduct(int id)
@@ -585,6 +594,16 @@ namespace webshop.Controllers
             var product = _context.Products.Find(id);
             if (product != null)
             {
+                // Удаляем изображение товара
+                if (!string.IsNullOrEmpty(product.Image))
+                {
+                    string imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images/Products", product.Image);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
                 _context.Products.Remove(product);
                 _context.SaveChanges();
             }
