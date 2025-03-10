@@ -506,7 +506,6 @@ namespace webshop.Controllers
             var user = _context.Users.Find(id);
             if (user != null)
             {
-                // Удаляем изображение пользователя, если оно не является дефолтным
                 if (!string.IsNullOrEmpty(user.Image) && user.Image != "default.webp")
                 {
                     string imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images/Users", user.Image);
@@ -594,7 +593,6 @@ namespace webshop.Controllers
             var product = _context.Products.Find(id);
             if (product != null)
             {
-                // Удаляем изображение товара
                 if (!string.IsNullOrEmpty(product.Image))
                 {
                     string imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images/Products", product.Image);
